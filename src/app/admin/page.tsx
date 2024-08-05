@@ -10,7 +10,7 @@ const Admin = () => {
   const [optionD, setOptionD] = useState('');
   const [answer, setAnswer] = useState('');
   const [marks, setMarks] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('HTML'); // Default category
+  const [selectedCategory, setSelectedCategory] = useState('HTML');
 
   const router = useRouter();
 
@@ -20,18 +20,24 @@ const Admin = () => {
   };
 
   const handleSubmit = async () => {
+    // Check if all fields are filled
+    if (!question || !optionA || !optionB || !optionC || !optionD || !answer || !marks) {
+      alert('Please fill out all fields');
+      return;
+    }
+  
     const questionData = {
       question,
       options: { A: optionA, B: optionB, C: optionC, D: optionD },
       answer,
       marks
     };
-
-    const endpoint = `http://localhost:5000/${selectedCategory.toLowerCase()}`; // Dynamically create endpoint
-
+  
+    const endpoint = `http://localhost:5000/${selectedCategory.toLowerCase()}`; 
+  
     console.log("Submitting data to endpoint:", endpoint);
     console.log("Submitting data:", questionData);
-
+  
     try {
       const response = await fetch(endpoint, {  
         method: 'POST',
@@ -40,10 +46,10 @@ const Admin = () => {
         },
         body: JSON.stringify(questionData)
       });
-
+  
       console.log("Response status:", response.status);
       console.log("Response URL:", response.url);
-
+  
       if (response.ok) {
         console.log("Response data:", await response.json());
         alert('Question saved successfully!');
