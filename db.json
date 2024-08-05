@@ -1,0 +1,73 @@
+{
+  "html": [
+    {
+      "id": "3b29",
+      "question": "Which of these elements in HTML can be used for making a text bold?",
+      "options": {
+        "A": "<a>",
+        "B": "<pre>",
+        "C": "<br>",
+        "D": "<b>"
+      },
+      "answer": "D"
+    },
+    {
+      "id": "996e",
+      "question": " Which tag do we use in HTML for inserting a line-break?",
+      "options": {
+        "A": "<a>",
+        "B": "<br>",
+        "C": "<b>",
+        "D": "<pre>"
+      },
+      "answer": "B"
+    },
+    {
+      "id": "ef26",
+      "question": "How to create a hyperlink in HTML?",
+      "options": {
+        "A": "<a link = “www.thinkandlearn.com”> thinkandlearn.com </a>",
+        "B": "<a> www.thinkandlearn.com <thinkandlearn.com /a>",
+        "C": "<a href = “www.thinkandlearn.com”> thinkandlearn.com </a>",
+        "D": "<a url = “www.thinkandlearn.com” thinkandlearn.com /a>"
+      },
+      "answer": "C"
+    },
+    {
+      "id": "32a0",
+      "question": "In HTML, how do we insert an image?",
+      "options": {
+        "A": "<img src = “jtp.png” />",
+        "B": "<img href = “jtp.png” />",
+        "C": "<img link = “jtp.png” />",
+        "D": "<img url = “jtp.png” />"
+      },
+      "answer": "A"
+    },
+    {
+      "id": "c758",
+      "question": "Which tag do we use to define the options present in the drop-down selection lists?",
+      "options": {
+        "A": "<list>",
+        "B": "<option>",
+        "C": " <dropdown>",
+        "D": "<select>"
+      },
+      "answer": "B"
+    }
+  ],
+  "css": [
+    {
+      "id": "8200",
+      "question": " The “color:red” in CSS can be known as _____________:",
+      "options": {
+        "A": "Value",
+        "B": "Declaration",
+        "C": "Selector",
+        "D": "Rule"
+      },
+      "answer": "B"
+    }
+  ],
+  "react": []
+}
