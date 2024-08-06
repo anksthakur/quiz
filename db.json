@@ -1,200 +1,25 @@
 {
-  "html": [
+  "quizes": [
     {
-      "id": "3b29",
-      "question": "Which of these elements in HTML can be used for making a text bold?",
-      "options": {
-        "A": "<a>",
-        "B": "<pre>",
-        "C": "<br>",
-        "D": "<b>"
-      },
-      "answer": "D",
-      "marks": "5"
+      "id": "d295",
+      "name": "html"
     },
     {
-      "id": "996e",
-      "question": " Which tag do we use in HTML for inserting a line-break?",
-      "options": {
-        "A": "<a>",
-        "B": "<br>",
-        "C": "<b>",
-        "D": "<pre>"
+      "id": "30ec",
+      "questionData": {
+        "number": 1722952389541,
+        "question": "huij",
+        "options": {
+          "a": "jknkj",
+          "b": "jbjkb",
+          "c": "jbjkbjk",
+          "d": "jk bj"
+        },
+        "answer": "bjb jk",
+        "marks": "bjk"
       },
-      "answer": "B",
-      "marks": "5"
-    },
-    {
-      "id": "ef26",
-      "question": "How to create a hyperlink in HTML?",
-      "options": {
-        "A": "<a link = “www.thinkandlearn.com”> thinkandlearn.com </a>",
-        "B": "<a> www.thinkandlearn.com <thinkandlearn.com /a>",
-        "C": "<a href = “www.thinkandlearn.com”> thinkandlearn.com </a>",
-        "D": "<a url = “www.thinkandlearn.com” thinkandlearn.com /a>"
-      },
-      "answer": "C",
-      "marks": "5"
-    },
-    {
-      "id": "32a0",
-      "question": "In HTML, how do we insert an image?",
-      "options": {
-        "A": "<img src = “jtp.png” />",
-        "B": "<img href = “jtp.png” />",
-        "C": "<img link = “jtp.png” />",
-        "D": "<img url = “jtp.png” />"
-      },
-      "answer": "A",
-      "marks": "5"
-    },
-    {
-      "id": "c758",
-      "question": "Which tag do we use to define the options present in the drop-down selection lists?",
-      "options": {
-        "A": "<list>",
-        "B": "<option>",
-        "C": " <dropdown>",
-        "D": "<select>"
-      },
-      "answer": "B",
-      "marks": "5"
-    }
-  ],
-  "css": [
-    {
-      "id": "8200",
-      "question": " The “color:red” in CSS can be known as _____________:",
-      "options": {
-        "A": "Value",
-        "B": "Declaration",
-        "C": "Selector",
-        "D": "Rule"
-      },
-      "answer": "B",
-      "marks": "5"
-    },
-    {
-      "id": "1132",
-      "question": " The “color:red” in CSS can be known as _____________:",
-      "options": {
-        "A": "Value",
-        "B": "Declaration",
-        "C": "Selector",
-        "D": "Rule"
-      },
-      "answer": "B",
-      "marks": "5"
-    },
-    {
-      "id": "7628",
-      "question": "Which selector do we use to specify the rule for binding some particular unique element?",
-      "options": {
-        "A": "Class",
-        "B": "Tag",
-        "C": "both tag and class",
-        "D": "Id"
-      },
-      "answer": "D",
-      "marks": "5"
-    },
-    {
-      "id": "3a9a",
-      "question": "In an HTML page, which of these tags is used for embedding CSS?",
-      "options": {
-        "A": "<!DOCTYPE html>",
-        "B": "<css>",
-        "C": "<style>",
-        "D": "<script>"
-      },
-      "answer": "C",
-      "marks": "5"
-    },
-    {
-      "id": "ddfc",
-      "question": "Which of these functions would convert the color of an element by the filter property to a grey shade, for use?",
-      "options": {
-        "A": "grayscale()",
-        "B": "shade()",
-        "C": "brightness()",
-        "D": "black()"
-      },
-      "answer": "A",
-      "marks": "5"
-    },
-    {
-      "id": "9d8a",
-      "question": "Which of these functions is the 2D transformation in the matrix format?",
-      "options": {
-        "A": " perspective",
-        "B": "matrix3d()",
-        "C": "matrix2d()",
-        "D": "matrix()"
-      },
-      "answer": "D",
-      "marks": "5"
-    }
-  ],
-  "react": [
-    {
-      "id": "410f",
-      "question": "The function which is called to render HTML to a web page in react?",
-      "options": {
-        "A": "ReactDOM_render()",
-        "B": "render()",
-        "C": "render_DOM()",
-        "D": "DOM_HTML()"
-      },
-      "answer": "B",
-      "marks": "5"
-    },
-    {
-      "id": "63ce",
-      "question": "Which of the following is the correct name of React.js?",
-      "options": {
-        "A": "react",
-        "B": "React.js",
-        "C": "ReactJS",
-        "D": "All of the above"
-      },
-      "answer": "D",
-      "marks": "5"
-    },
-    {
-      "id": "d0ff",
-      "question": "Which of the following command is used to install create-react-app?",
-      "options": {
-        "A": "npm install -g create-react-app",
-        "B": "npm install create-react-app",
-        "C": "npm install -f create-react-app",
-        "D": "install -g create-react-app"
-      },
-      "answer": "A",
-      "marks": "5"
-    },
-    {
-      "id": "ddeb",
-      "question": "What of the following is used in React.js to increase performance?",
-      "options": {
-        "A": "Original DOM",
-        "B": "Virtual DOM",
-        "C": "Both A and B.",
-        "D": "None of the above"
-      },
-      "answer": "B",
-      "marks": "5"
-    },
-    {
-      "id": "e61f",
-      "question": " A class is a type of function, but instead of using the keyword function to initiate it, which keyword do we use?",
-      "options": {
-        "A": "Constructor",
-        "B": "Class",
-        "C": "Object",
-        "D": "DataObject"
-      },
-      "answer": "B",
-      "marks": "5"
+      "subjectId": "d295",
+      "category": ""
     }
   ]
 }

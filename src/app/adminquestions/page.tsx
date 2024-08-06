@@ -43,15 +43,16 @@ const Page: React.FC = () => {
     fetchData();
   }, [selectedCategory]);
 
-  // to handle the category
+  // handle  category
   const handleCategoryChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSelectedCategory(e.target.value);
   };
 
   return (
     <>
-      <div className="flex flex-col md:flex-row justify-between p-4 bg-gray-100 dark:bg-gray-800">
-        <div className="mb-4 md:mb-0">
+      <div className="bg-orange-200">
+      <div className="flex flex-col md:flex-row justify-between p-4 bg-gray-100 dark:bg-slate-800">
+        <div className="mb-4 md:mb-0 items-center">
           <h1 className="text-xl font-bold text-white">Welcome Admin</h1>
         </div>
         <Link className="text-white hover:text-blue-500" href="/admin">
@@ -83,9 +84,10 @@ const Page: React.FC = () => {
         </div>
         <div className="mt-5">
           <h1 className="text-lg font-semibold">Questions</h1>
-          <div className="space-y-4">
+         
+           <div className="space-y-4 ">
             {questions.map((item) => (
-              <div key={item.id} className="p-4 bg-white shadow-md rounded-md">
+              <div key={item.id} className="p-4 bg-slate-200 shadow-md rounded-md ">
                 <h2 className="font-semibold">{item.question}</h2>
                 <ul className="list-disc pl-5">
                   {Object.entries(item.options).map(([key, value]) => (
@@ -93,14 +95,7 @@ const Page: React.FC = () => {
                       <span className="font-bold">{key}:</span> {value}
                     </li>
                   ))}
-                  {/* <ul>
-  <li key="optionA">
-    <span className="font-bold">optionA:</span> Value A
-  </li>
-  <li key="optionB">
-    <span className="font-bold">optionB:</span> Value B
-  </li>
-</ul> */}
+                 
                 </ul>
                 <p className="mt-2">
                   Answer: <span className="font-bold">{item.answer}</span>
@@ -109,7 +104,9 @@ const Page: React.FC = () => {
               </div>
             ))}
           </div>
+         
         </div>
+      </div>
       </div>
     </>
   );
