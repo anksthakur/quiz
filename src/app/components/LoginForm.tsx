@@ -11,7 +11,7 @@ const LoginForm = () => {
     return (
       
       <div className='flex gap-4 ml-auto'>
-        <p className='text-sky-600'> {session.user.name}</p>
+        <p className='text-red-600'> {session.user.name}</p>
         <button onClick={()=> signOut()} className='text-red-600'>
           SignOut
         </button>

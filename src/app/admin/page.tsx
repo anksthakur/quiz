@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const Admin = () => {
   const [question, setQuestion] = useState('');
@@ -77,10 +78,11 @@ const Admin = () => {
         <div className="mb-4 md:mb-0">
           <h1 className="text-xl font-bold text-white">Welcome Admin</h1>
         </div>
+        <Link  className="text-white hover:text-blue-500" href="/adminquestions"> Go To Questions</Link>
         <div>
           <button 
             onClick={handleLogout} 
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Logout</button>
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 ">Logout</button>
         </div> 
       </div>
       <div className="p-4">
