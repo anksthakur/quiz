@@ -13,6 +13,7 @@ interface Question {
   };
   answer: string;
   marks: number;
+  number:any;
 }
 
 interface Subject {
@@ -78,16 +79,24 @@ const Page: React.FC = () => {
     setSelectedSubjectId(e.target.value);
     console.log('Selected subject ID:', e.target.value);
   };
-
-  // Handle delete question
-  const handleDeleteQuestion = async (questionId: number) => {
-    try {
-      await axios.delete(`http://localhost:5000/questions/${questionId}`);
-      setQuestions(questions.filter(question => question.id !== questionId));
-    } catch (error) {
-      console.error('Error deleting question:', error);
-    }
-  };
+// Handle delete question
+const handleDeleteQuestion = async (subjectId: string, questionNumber: number) => {
+  try {
+    console.log('Deleting question with:', { subjectId, questionNumber });
+    
+    const response = await axios.delete('http://localhost:5000/quizes', {
+      params: {
+        subjectId,
+        number: questionNumber
+      }
+    });
+    
+    console.log('Delete response:', response.data);
+    setQuestions(questions.filter(question => question.number !== questionNumber));
+  } catch (error:any) {
+    console.error('Error deleting question:', error.response ? error.response.data : error.message);
+  }
+};
 
   // Handle edit question
   const handleEditQuestion = (question: Question) => {
@@ -146,34 +155,32 @@ const Page: React.FC = () => {
           <div className="mt-5">
             <h1 className="text-lg font-semibold">Questions</h1>
             <div className="space-y-4">
-              {questions.map((item, index) => (
-                <div key={index} className="p-4 bg-slate-200 shadow-md rounded-md">
-                  <h2 className="font-semibold">{item.question}</h2>
-                  <ul className="list-disc pl-5">
-                    {Object.entries(item.options).map(([key, value]) => (
-                      <li key={key}>
-                        <span className="font-bold">{key}:</span> {value}
-                      </li>
-                    ))}
-                  </ul>
-                  <p className="mt-2">
-                    Answer: <span className="font-bold">{item.answer}</span>
-                  </p>
-                  <p className="mt-1">Marks: {item.marks}</p>
-                  <button
-                    onClick={() => handleEditQuestion(item)}
-                    className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
-                  >
-                    Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteQuestion(item.id)}
-                    className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 ml-2"
-                  >
-                    Delete
-                  </button>
-                </div>
-              ))}
+            {questions.map((item) => (
+  <div key={item.number} className="p-4 bg-slate-200 shadow-md rounded-md">
+    <h2 className="font-semibold">{item.question}</h2>
+    <ul className="list-disc pl-5">
+      {Object.entries(item.options).map(([key, value]) => (
+        <li key={key}>
+          <span className="font-bold">{key}:</span> {value}
+        </li>
+      ))}
+    </ul>
+    <p><strong>Answer:</strong> {item.answer}</p>
+    <p><strong>Marks:</strong> {item.marks}</p>
+    <button
+      onClick={() => handleDeleteQuestion(selectedSubjectId, item.number)}
+      className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
+    >
+      Delete
+    </button>
+    <button
+      onClick={() => handleEditQuestion(item)}
+      className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
+    >
+      Edit
+    </button>
+  </div>
+))}
             </div>
           </div>
         </div>

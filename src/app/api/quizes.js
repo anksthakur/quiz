@@ -27,9 +27,9 @@ export default function handler(req, res) {
       }
 
       // Check if questionData.id is already used
-      const existingQuestion = subject.questions.find(q => q.id === questionData.id);
+      const existingQuestion = subject.questions.find(q => q.number === questionData.number);
       if (existingQuestion) {
-        return res.status(400).json({ message: 'Question ID already exists' });
+        return res.status(400).json({ message: 'Question number already exists' });
       }
 
       // Add the new question to the subject's questions array
@@ -55,7 +55,7 @@ export default function handler(req, res) {
       }
 
       // Find the question and update it
-      const questionIndex = subject.questions.findIndex(q => q.id === id);
+      const questionIndex = subject.questions.findIndex(q => q.number === questionData.number);
       if (questionIndex === -1) {
         return res.status(404).json({ message: 'Question not found' });
       }
@@ -68,27 +68,36 @@ export default function handler(req, res) {
       res.status(200).json({ message: 'Question updated successfully!' });
 
     } else if (req.method === 'DELETE') {
-      const { id } = req.query;
-
-      // Validate input
-      if (!id) {
-        return res.status(400).json({ message: 'Missing required fields' });
-      }
-
-      // Find the subject by question's ID
-      const subject = dbData.quizes.find(q => q.questions && q.questions.some(q => q.id === id));
-      if (!subject) {
-        return res.status(404).json({ message: 'Subject not found' });
-      }
-
-      // Remove the question from the subject's questions array
-      subject.questions = subject.questions.filter(q => q.id !== id);
-
-      // Write updated data back to the db.json file
-      fs.writeFileSync(dbPath, JSON.stringify(dbData, null, 2), 'utf-8');
-
-      res.status(200).json({ message: 'Question deleted successfully!' });
-
+        const { subjectId, number } = req.query;
+        console.log('Received DELETE request with:', { subjectId, number });
+        
+        // Convert number to number type
+        const num = Number(number);
+        
+        // Validate input
+        if (!subjectId || isNaN(num)) {
+          return res.status(400).json({ message: 'Missing or invalid required fields' });
+        }
+        
+        // Find the subject by subjectId
+        const subject = dbData.quizes.find(q => q.id === subjectId);
+        if (!subject) {
+          return res.status(404).json({ message: 'Subject not found' });
+        }
+        
+        // Find and remove the question
+        const initialLength = subject.questions.length;
+        subject.questions = subject.questions.filter(q => q.number !== num);
+        
+        if (subject.questions.length === initialLength) {
+          return res.status(404).json({ message: 'Question not found' });
+        }
+        
+        // Write updated data back to the db.json file
+        fs.writeFileSync(dbPath, JSON.stringify(dbData, null, 2), 'utf-8');
+        
+        res.status(200).json({ message: 'Question deleted successfully!' });
+      
     } else {
       res.setHeader('Allow', ['POST', 'PUT', 'DELETE']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
