@@ -28,10 +28,9 @@ const Admin = () => {
         console.error('Error fetching subjects:', error);
       }
     };
-  
+
     fetchSubjects();
   }, []);
-  
 
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -112,51 +111,48 @@ const Admin = () => {
   };
 
   return (
-    <>
-      <div className="bg-sky-200">
-        <div className="flex flex-col md:flex-row justify-between p-4 bg-gray-100 dark:bg-gray-800">
-          <div className="mb-4 md:mb-0">
-            <h1 className="text-xl font-bold text-white">Welcome Admin</h1>
-          </div>
+    <div className="bg-sky-200 min-h-screen flex flex-col">
+      <header className="flex flex-col md:flex-row justify-between p-4 bg-gray-100 dark:bg-gray-800">
+        <h1 className="text-xl font-bold text-white mb-4 md:mb-0">Welcome Admin</h1>
+        <nav className="flex items-center space-x-4">
           <Link className="text-white hover:text-blue-500" href="/adminquestions">Go To Questions</Link>
-          <div>
+          <button
+            onClick={handleLogout}
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Logout
+          </button>
+        </nav>
+      </header>
+
+      <main className="flex-grow p-4 container mx-auto">
+        {/* Add Subject Section */}
+        <div className="shadow-md mb-4 p-4 bg-white rounded">
+          <h1 className="text-lg font-semibold mb-2">Add Subject:</h1>
+          <div className="flex flex-col md:flex-row md:items-center gap-4">
+            <input
+              type="text"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+              className="block w-full md:w-1/2 p-2 border rounded"
+              placeholder="Enter subject name"
+            />
             <button
-              onClick={handleLogout}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              onClick={handleAddSubject}
+              className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
             >
-              Logout
+              Add Subject
             </button>
           </div>
         </div>
 
-        {/* Add Subject Section */}
-        <div className="shadow-md mb-4">
-          <div className="m-2">
-            <div className="flex gap-4 mb-1">
-              <h1 className="mb-2 font-semibold text-lg">Add Subject :</h1>
-              <input 
-                type="text" 
-                value={subject} 
-                onChange={(e) => setSubject(e.target.value)} 
-                className="block w-1/2 p-2 border rounded m-2" 
-              />
-              <button
-                onClick={handleAddSubject}
-                className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
-              >
-                Add Subject
-              </button>
-            </div>
-          </div>
-        </div>
-
         {/* Select Subject Section */}
-        <div className="shadow-md mb-4">
-          <h1 className="mb-2 font-semibold text-lg">Select Subject:</h1>
+        <div className="shadow-md mb-4 p-4 bg-white rounded">
+          <h1 className="text-lg font-semibold mb-2">Select Subject:</h1>
           <select
             value={subjectId || ''}
             onChange={handleSubjectChange}
-            className="block w-1/2 p-2 border rounded"
+            className="block w-full md:w-1/2 p-2 border rounded"
           >
             <option value="">Select a subject</option>
             {subjects.map((sub) => (
@@ -166,59 +162,36 @@ const Admin = () => {
         </div>
 
         {/* Add Questions Section */}
-        <div className="shadow-md mb-4">
-          <div className="m-2">
-            <h1 className="text-lg font-semibold mb-4">Add Questions</h1>
+        <div className="shadow-md mb-4 p-4 bg-white rounded">
+          <h1 className="text-lg font-semibold mb-4">Add Questions</h1>
+          <div className="flex flex-col gap-4">
             <label className="block mb-2 font-semibold">Question</label>
             <input
               type="text"
               placeholder="Enter your question"
-              className="block w-full p-2 mb-4 border rounded"
+              className="block w-full p-2 border rounded"
               value={question}
               onChange={(e) => setQuestion(e.target.value)}
             />
             <label className="block mb-2 font-semibold">Options</label>
             <div className="flex flex-col gap-4">
-              <label className="flex items-center">
-                <span className="mr-2 font-semibold">A</span>
-                <input
-                  type="text"
-                  placeholder="Option A"
-                  className="block w-full p-2 border rounded"
-                  value={optionA}
-                  onChange={(e) => setOptionA(e.target.value)}
-                />
-              </label>
-              <label className="flex items-center">
-                <span className="mr-2 font-semibold">B</span>
-                <input
-                  type="text"
-                  placeholder="Option B"
-                  className="block w-full p-2 border rounded"
-                  value={optionB}
-                  onChange={(e) => setOptionB(e.target.value)}
-                />
-              </label>
-              <label className="flex items-center">
-                <span className="mr-2 font-semibold">C</span>
-                <input
-                  type="text"
-                  placeholder="Option C"
-                  className="block w-full p-2 border rounded"
-                  value={optionC}
-                  onChange={(e) => setOptionC(e.target.value)}
-                />
-              </label>
-              <label className="flex items-center">
-                <span className="mr-2 font-semibold">D</span>
-                <input
-                  type="text"
-                  placeholder="Option D"
-                  className="block w-full p-2 border rounded"
-                  value={optionD}
-                  onChange={(e) => setOptionD(e.target.value)}
-                />
-              </label>
+              {['A', 'B', 'C', 'D'].map((label, index) => (
+                <label key={label} className="flex items-center">
+                  <span className="mr-2 font-semibold">{label}</span>
+                  <input
+                    type="text"
+                    placeholder={`Option ${label}`}
+                    className="block w-full p-2 border rounded"
+                    value={index === 0 ? optionA : index === 1 ? optionB : index === 2 ? optionC : optionD}
+                    onChange={(e) => {
+                      if (index === 0) setOptionA(e.target.value);
+                      if (index === 1) setOptionB(e.target.value);
+                      if (index === 2) setOptionC(e.target.value);
+                      if (index === 3) setOptionD(e.target.value);
+                    }}
+                  />
+                </label>
+              ))}
             </div>
             <label className="block mt-4 mb-2 font-semibold">Answer</label>
             <input
@@ -244,8 +217,8 @@ const Admin = () => {
             </button>
           </div>
         </div>
-      </div>
-    </>
+      </main>
+    </div>
   );
 };
 

@@ -35,7 +35,7 @@ const QuizPage = () => {
   const [totalMarks, setTotalMarks] = useState<number>(0);
 
   const passingMarks = 15;
-  const optionLabels = ["A", "B", "C", "D"]; // Option labels
+  const optionLabels = ["A", "B", "C", "D"]; 
 
   // Fetch subjects
   useEffect(() => {
@@ -144,32 +144,30 @@ const QuizPage = () => {
   };
 
   return (
-    <>
-      <div className="bg-green-100 min-h-screen">
-        <div className="flex flex-col md:flex-row justify-between p-4 bg-gray-100 dark:bg-gray-800">
-          <div className="mb-4 md:mb-0">
-            <h1 className="text-xl font-bold text-white">Welcome user</h1>
-          </div>
+    <div className="bg-green-100 min-h-screen flex flex-col">
+      <header className="flex flex-col md:flex-row justify-between p-4 bg-gray-100 dark:bg-gray-800">
+        <h1 className="text-xl font-bold text-white mb-4 md:mb-0">Welcome user</h1>
+        <nav className="flex items-center space-x-4">
           <Link className="text-white hover:text-blue-500" href="/">
             Go To Home Page
           </Link>
-          <div>
-            <Link
-              href="/userlogin"
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-            >
-              Logout
-            </Link>
-          </div>
-        </div>
+          <Link
+            href="/userlogin"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Logout
+          </Link>
+        </nav>
+      </header>
 
-        {/* Select Subject Section */}
+      {/* Select Subject Section */}
+      <main className="flex-grow p-4 container mx-auto">
         <div className="shadow-md mb-4">
           <h1 className="mb-2 font-semibold text-lg">Select Subject:</h1>
           <select
             value={selectedSubjectId || ""}
             onChange={handleSubjectChange}
-            className="block w-1/2 p-2 border rounded"
+            className="block w-full md:w-1/2 p-2 border rounded"
           >
             <option value="">Select a subject</option>
             {subjects.map((sub) => (
@@ -182,61 +180,53 @@ const QuizPage = () => {
 
         {questions.length > 0 && (
           <div className="p-4">
-            <div className="mb-4 shadow-md">
-              <div className="m-2">
-                <h2 className="text-xl ">
-                  {currentQuestion + 1}. {questions[currentQuestion].question}
-                </h2>
-              </div>
+            <div className="mb-4 shadow-md p-4">
+              <h2 className="text-xl">
+                {currentQuestion + 1}. {questions[currentQuestion].question}
+              </h2>
             </div>
-            <div className="mb-4 shadow-md">
-              <div className="m-2">
-                {Object.entries(questions[currentQuestion].options).map(
-                  ([key, option], index) => (
-                    <label key={key} className="block mb-2">
-                      <input
-                        type="radio"
-                        name={`question_${currentQuestion}`}
-                        value={key}
-                        checked={selectedOptions[currentQuestion] === key}
-                        onChange={handleOptionChange}
-                        className="mr-2"
-                      />
-                      {optionLabels[index]}. {option}
-                    </label>
-                  )
-                )}
-              </div>
+            <div className="mb-4 shadow-md p-4">
+              {Object.entries(questions[currentQuestion].options).map(
+                ([key, option], index) => (
+                  <label key={key} className="block mb-2 flex items-center">
+                    <input
+                      type="radio"
+                      name={`question_${currentQuestion}`}
+                      value={key}
+                      checked={selectedOptions[currentQuestion] === key}
+                      onChange={handleOptionChange}
+                      className="mr-2"
+                    />
+                    {optionLabels[index]}. {option}
+                  </label>
+                )
+              )}
             </div>
 
-            <div className="shadow-md mt-4">
-              <div className="m-2">
-                <div className="flex justify-between">
-                  <button
-                    onClick={handlePreviousQuestion}
-                    disabled={currentQuestion === 0}
-                    className="p-1 bg-blue-500 text-white rounded disabled:bg-gray-400"
-                  >
-                    Previous
-                  </button>
-                  <button
-                    onClick={handleNextQuestion}
-                    disabled={currentQuestion === questions.length - 1}
-                    className="p-1 bg-blue-500 text-white rounded disabled:bg-gray-400"
-                  >
-                    Next
-                  </button>
-                </div>
+            <div className="shadow-md mt-4 p-4">
+              <div className="flex justify-between">
+                <button
+                  onClick={handlePreviousQuestion}
+                  disabled={currentQuestion === 0}
+                  className="p-2 bg-blue-500 text-white rounded disabled:bg-gray-400"
+                >
+                  Previous
+                </button>
+                <button
+                  onClick={handleNextQuestion}
+                  disabled={currentQuestion === questions.length - 1}
+                  className="p-2 bg-blue-500 text-white rounded disabled:bg-gray-400"
+                >
+                  Next
+                </button>
               </div>
             </div>
 
             {isSubmitted && (
-              <div className="mb-4">
+              <div className="mb-4 p-4">
                 <h3
                   className={`text-xl ${
-                    totalMarks >= passingMarks
-                      ? "text-green-600"
-                      : "text-red-600"
+                    totalMarks >= passingMarks ? "text-green-600" : "text-red-600"
                   }`}
                 >
                   Total Marks: {totalMarks} / {questions.length * 5}
@@ -244,11 +234,11 @@ const QuizPage = () => {
               </div>
             )}
 
-            <div className="shadow-md mt-4">
-              <div className="flex justify-between m-2">
+            <div className="shadow-md mt-4 p-4">
+              <div className="flex justify-between">
                 <button
                   onClick={handleSubmitQuiz}
-                  className="p-1 bg-green-600 text-white rounded"
+                  className="p-2 bg-green-600 text-white rounded"
                   disabled={
                     Object.keys(selectedOptions).length !== questions.length
                   }
@@ -257,7 +247,7 @@ const QuizPage = () => {
                 </button>
                 <button
                   onClick={handleRestartQuiz}
-                  className="p-1 bg-red-600 text-white rounded"
+                  className="p-2 bg-red-600 text-white rounded"
                 >
                   Restart Quiz
                 </button>
@@ -265,8 +255,8 @@ const QuizPage = () => {
             </div>
           </div>
         )}
-      </div>
-    </>
+      </main>
+    </div>
   );
 };
 
