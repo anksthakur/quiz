@@ -5,21 +5,236 @@
       "name": "html"
     },
     {
-      "id": "30ec",
+      "id": "11bc",
+      "name": "css"
+    },
+    {
+      "id": "687d",
       "questionData": {
-        "number": 1722952389541,
-        "question": "huij",
+        "number": 1723003477190,
+        "question": " In how many ways can CSS be written in?",
         "options": {
-          "a": "jknkj",
-          "b": "jbjkb",
-          "c": "jbjkbjk",
-          "d": "jk bj"
+          "a": "1",
+          "b": "2",
+          "c": "3",
+          "d": "4"
         },
-        "answer": "bjb jk",
-        "marks": "bjk"
+        "answer": "C",
+        "marks": "5"
       },
-      "subjectId": "d295",
-      "category": ""
+      "subjectId": "11bc"
+    },
+    {
+      "id": "13bd",
+      "questionData": {
+        "number": 1723003709042,
+        "question": "CSS stands for -",
+        "options": {
+          "a": "Cascade style sheets",
+          "b": "Color and style sheets",
+          "c": "Cascading style sheets",
+          "d": "None of the above"
+        },
+        "answer": "C",
+        "marks": "5"
+      },
+      "subjectId": "11bc"
+    },
+    {
+      "id": "fc5e",
+      "questionData": {
+        "number": 1723003763403,
+        "question": "The property in CSS used to change the background color of an element is -",
+        "options": {
+          "a": "bgcolor",
+          "b": "color",
+          "c": "background-color",
+          "d": "All of the above"
+        },
+        "answer": "C",
+        "marks": "5"
+      },
+      "subjectId": "11bc"
+    },
+    {
+      "id": "33c5",
+      "questionData": {
+        "number": 1723003823813,
+        "question": "The CSS property used to control the element's font-size is -",
+        "options": {
+          "a": "text-style",
+          "b": "text-size",
+          "c": "font-size",
+          "d": "None of the above"
+        },
+        "answer": "C",
+        "marks": "5"
+      },
+      "subjectId": "11bc"
+    },
+    {
+      "id": "3437",
+      "questionData": {
+        "number": 1723003905189,
+        "question": "HTML stands for -",
+        "options": {
+          "a": "HighText Machine Language",
+          "b": "HyperText and links Markup Language",
+          "c": "HyperText Markup Language",
+          "d": "None of these"
+        },
+        "answer": "C",
+        "marks": "5"
+      },
+      "subjectId": "d295"
+    },
+    {
+      "id": "54fa",
+      "questionData": {
+        "number": 1723003956093,
+        "question": "Which of the following element is responsible for making the text bold in HTML?",
+        "options": {
+          "a": "<pre>",
+          "b": "<a>",
+          "c": "<b>",
+          "d": "<br>"
+        },
+        "answer": "C",
+        "marks": "5"
+      },
+      "subjectId": "d295"
+    },
+    {
+      "id": "d698",
+      "questionData": {
+        "number": 1723004010706,
+        "question": "Which of the following tag is used for inserting the largest heading in HTML?",
+        "options": {
+          "a": "<h3>",
+          "b": "<h1>",
+          "c": "<h5>",
+          "d": "<h6>"
+        },
+        "answer": "B",
+        "marks": "5"
+      },
+      "subjectId": "d295"
+    },
+    {
+      "id": "0994",
+      "questionData": {
+        "number": 1723004064671,
+        "question": " How to create an unordered list (a list with the list items in bullets) in HTML?",
+        "options": {
+          "a": "<ul>",
+          "b": "<ol>",
+          "c": "<li>",
+          "d": "<i>"
+        },
+        "answer": "A",
+        "marks": "5"
+      },
+      "subjectId": "d295"
+    },
+    {
+      "id": "7604",
+      "questionData": {
+        "number": 1723005577954,
+        "question": "How to insert an image in HTML?",
+        "options": {
+          "a": "<img href = \"jtp.png\" />",
+          "b": "<img url = \"jtp.png\" />",
+          "c": "<img link = \"jtp.png\" />",
+          "d": "<img src = \"jtp.png\" />"
+        },
+        "answer": "D",
+        "marks": "5"
+      },
+      "subjectId": "d295"
+    },
+    {
+      "id": "0199",
+      "name": "react"
+    },
+    {
+      "id": "8790",
+      "questionData": {
+        "number": 1723006878712,
+        "question": "Which of the following is the correct name of React.js?",
+        "options": {
+          "a": "React",
+          "b": "React.js",
+          "c": "ReactJS",
+          "d": "All of the above"
+        },
+        "answer": "D",
+        "marks": "5"
+      },
+      "subjectId": "0199"
+    },
+    {
+      "id": "032a",
+      "questionData": {
+        "number": 1723006936235,
+        "question": "Which of the following command is used to install create-react-app?",
+        "options": {
+          "a": "npm install -g create-react-app",
+          "b": "npm install create-react-app",
+          "c": "npm install -f create-react-app",
+          "d": "install -g create-react-app"
+        },
+        "answer": "A",
+        "marks": "5"
+      },
+      "subjectId": "0199"
+    },
+    {
+      "id": "df36",
+      "questionData": {
+        "number": 1723007154770,
+        "question": "What of the following is used in React.js to increase performance?",
+        "options": {
+          "a": "Original DOM",
+          "b": "Virtual DOM",
+          "c": "Both A and B.",
+          "d": "None of the above."
+        },
+        "answer": "B",
+        "marks": "5"
+      },
+      "subjectId": "0199"
+    },
+    {
+      "id": "de09",
+      "questionData": {
+        "number": 1723007220693,
+        "question": "A class is a type of function, but instead of using the keyword function to initiate it, which keyword do we use?",
+        "options": {
+          "a": "Constructor",
+          "b": "Class",
+          "c": "Object",
+          "d": "DataObject"
+        },
+        "answer": "B",
+        "marks": "5"
+      },
+      "subjectId": "0199"
+    },
+    {
+      "id": "1cec",
+      "questionData": {
+        "number": 1723007285661,
+        "question": "Which of the following keyword is used to create a class inheritance?",
+        "options": {
+          "a": "Create",
+          "b": "Inherits",
+          "c": "Extends",
+          "d": "This"
+        },
+        "answer": "C",
+        "marks": "5"
+      },
+      "subjectId": "0199"
     }
   ]
 }

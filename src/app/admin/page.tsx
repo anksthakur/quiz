@@ -13,7 +13,6 @@ const Admin = () => {
   const [marks, setMarks] = useState('');
   const [subject, setSubject] = useState('');
   const [subjectId, setSubjectId] = useState<string | null>(null);
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [subjects, setSubjects] = useState<{ id: string; name: string }[]>([]);
 
   const router = useRouter();
@@ -23,14 +22,16 @@ const Admin = () => {
       try {
         const response = await fetch('http://localhost:5000/quizes');
         const data = await response.json();
-        setSubjects(data);
+        const filteredSubjects = data.filter((item: any) => item.name);
+        setSubjects(filteredSubjects);
       } catch (error) {
         console.error('Error fetching subjects:', error);
       }
     };
-
+  
     fetchSubjects();
   }, []);
+  
 
   const handleLogout = () => {
     localStorage.removeItem('user');
@@ -70,28 +71,27 @@ const Admin = () => {
       alert('Please fill out all fields');
       return;
     }
-  
+
     const questionData = {
-      number: Date.now(), // Unique identifier for the question
+      number: Date.now(),
       question,
       options: { a: optionA, b: optionB, c: optionC, d: optionD },
       answer,
       marks
     };
-  
+
     const data = {
       questionData,
-      subjectId,
-      category: selectedCategory
+      subjectId
     };
-  
+
     try {
       const response = await fetch('http://localhost:5000/quizes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-  
+
       if (response.ok) {
         alert('Question saved successfully!');
         setQuestion('');
@@ -110,7 +110,6 @@ const Admin = () => {
       alert('An error occurred while saving the question.');
     }
   };
-  
 
   return (
     <>
@@ -221,10 +220,10 @@ const Admin = () => {
                 />
               </label>
             </div>
-            <label className="block mt-4 mb-2 font-semibold">Correct Option</label>
+            <label className="block mt-4 mb-2 font-semibold">Answer</label>
             <input
               type="text"
-              placeholder="Enter the correct answer (a, b, c, or d)"
+              placeholder="Enter the correct answer"
               className="block w-full p-2 mb-4 border rounded"
               value={answer}
               onChange={(e) => setAnswer(e.target.value)}
@@ -232,16 +231,16 @@ const Admin = () => {
             <label className="block mb-2 font-semibold">Marks</label>
             <input
               type="text"
-              placeholder="Marks for this question"
+              placeholder="Enter marks for the question"
               className="block w-full p-2 mb-4 border rounded"
               value={marks}
               onChange={(e) => setMarks(e.target.value)}
             />
             <button
               onClick={handleSubmit}
-              className="bg-blue-500 text-white p-2 rounded-md mt-4 hover:bg-blue-600"
+              className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
             >
-              Submit
+              Save Question
             </button>
           </div>
         </div>
