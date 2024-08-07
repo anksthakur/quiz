@@ -200,7 +200,7 @@ const handleDeleteQuestion = async (subjectId: string, questionNumber: number) =
                 className="block w-full p-2 border rounded"
               />
             </label>
-            {/* Add similar input fields for options, answer, and marks */}
+            
             <button
               onClick={handleSaveQuestion}
               className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"

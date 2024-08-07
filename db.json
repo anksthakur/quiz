@@ -19,7 +19,7 @@
           "c": "3",
           "d": "4"
         },
-        "answer": "C",
+        "answer": "c",
         "marks": "5"
       },
       "subjectId": "11bc"
@@ -35,7 +35,7 @@
           "c": "Cascading style sheets",
           "d": "None of the above"
         },
-        "answer": "C",
+        "answer": "c",
         "marks": "5"
       },
       "subjectId": "11bc"
@@ -51,7 +51,7 @@
           "c": "background-color",
           "d": "All of the above"
         },
-        "answer": "C",
+        "answer": "c",
         "marks": "5"
       },
       "subjectId": "11bc"
@@ -67,7 +67,7 @@
           "c": "font-size",
           "d": "None of the above"
         },
-        "answer": "C",
+        "answer": "c",
         "marks": "5"
       },
       "subjectId": "11bc"
@@ -83,7 +83,7 @@
           "c": "HyperText Markup Language",
           "d": "None of these"
         },
-        "answer": "C",
+        "answer": "c",
         "marks": "5"
       },
       "subjectId": "d295"
@@ -99,7 +99,7 @@
           "c": "<b>",
           "d": "<br>"
         },
-        "answer": "C",
+        "answer": "c",
         "marks": "5"
       },
       "subjectId": "d295"
@@ -115,7 +115,7 @@
           "c": "<h5>",
           "d": "<h6>"
         },
-        "answer": "B",
+        "answer": "b",
         "marks": "5"
       },
       "subjectId": "d295"
@@ -131,7 +131,7 @@
           "c": "<li>",
           "d": "<i>"
         },
-        "answer": "A",
+        "answer": "a",
         "marks": "5"
       },
       "subjectId": "d295"
@@ -147,7 +147,7 @@
           "c": "<img link = \"jtp.png\" />",
           "d": "<img src = \"jtp.png\" />"
         },
-        "answer": "D",
+        "answer": "d",
         "marks": "5"
       },
       "subjectId": "d295"
@@ -167,7 +167,7 @@
           "c": "ReactJS",
           "d": "All of the above"
         },
-        "answer": "D",
+        "answer": "d",
         "marks": "5"
       },
       "subjectId": "0199"
@@ -183,7 +183,7 @@
           "c": "npm install -f create-react-app",
           "d": "install -g create-react-app"
         },
-        "answer": "A",
+        "answer": "a",
         "marks": "5"
       },
       "subjectId": "0199"
@@ -199,7 +199,7 @@
           "c": "Both A and B.",
           "d": "None of the above."
         },
-        "answer": "B",
+        "answer": "b",
         "marks": "5"
       },
       "subjectId": "0199"
@@ -215,7 +215,7 @@
           "c": "Object",
           "d": "DataObject"
         },
-        "answer": "B",
+        "answer": "b",
         "marks": "5"
       },
       "subjectId": "0199"
@@ -231,7 +231,7 @@
           "c": "Extends",
           "d": "This"
         },
-        "answer": "C",
+        "answer": "c",
         "marks": "5"
       },
       "subjectId": "0199"

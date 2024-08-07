@@ -4,59 +4,91 @@ import Link from "next/link";
 import React, { ChangeEvent, useEffect, useState } from "react";
 
 interface Question {
-  id: number;
+  id: string;
   question: string;
   options: {
     [key: string]: string;
   };
   answer: string;
   marks: number;
+  number: any;
+}
+
+interface Subject {
+  id: string;
+  name: string;
+  questionData?: Question[];
+  subjectId?: string;
 }
 
 const QuizPage = () => {
-  const [selectedCategory, setSelectedCategory] = useState<string>("HTML");
+  const [subjects, setSubjects] = useState<Subject[]>([]);
+  const [selectedSubjectId, setSelectedSubjectId] = useState<string | null>(
+    null
+  );
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
-  const [selectedOptions, setSelectedOptions] = useState<{ [key: number]: string }>({});
+  const [selectedOptions, setSelectedOptions] = useState<{
+    [key: number]: string;
+  }>({});
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [totalMarks, setTotalMarks] = useState<number>(0);
 
   const passingMarks = 15;
+  const optionLabels = ["A", "B", "C", "D"]; // Option labels
 
-  // API call for questions
+  // Fetch subjects
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchSubjects = async () => {
       try {
-        const response = await axios.get<Question[]>(
-          `http://localhost:5000/${selectedCategory.toLowerCase()}`
+        const response = await axios.get<Subject[]>(
+          "http://localhost:5000/quizes"
         );
-        setQuestions(response.data);
-        setCurrentQuestion(0); // Reset to the first question
-        setSelectedOptions({}); // Reset selected options
-        setIsSubmitted(false); // Reset submission state
-        setTotalMarks(0); // Reset total marks
-        console.log("Questions fetched:", response.data);
+        console.log("Fetched subjects:", response.data);
+        const filteredSubjects = response.data.filter((item) => item.name);
+        setSubjects(filteredSubjects);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching subjects:", error);
       }
     };
 
-    fetchData();
-  }, [selectedCategory]);
+    fetchSubjects();
+  }, []);
 
-  // Handle category change
-  const handleCategoryChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setSelectedCategory(e.target.value);
-  };
+  // Fetch questions based on selected subject
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const response = await axios.get<Subject[]>(
+          "http://localhost:5000/quizes"
+        );
+        console.log("Fetched quizzes:", response.data);
+
+        // Filter and extract questions on the selected subject
+        const filteredQuestions = response.data
+          .filter(
+            (item) => item.subjectId === selectedSubjectId && item.questionData
+          )
+          .flatMap((item) => item.questionData);
+
+        console.log(
+          `Filtered questions for subject: ${selectedSubjectId}`,
+          filteredQuestions
+        );
+        setQuestions(filteredQuestions as Question[]);
+      } catch (error) {
+        console.error("Error fetching questions:", error);
+      }
+    };
+
+    if (selectedSubjectId) {
+      fetchQuestions();
+    }
+  }, [selectedSubjectId]);
 
   // Handle option change
   const handleOptionChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selectedOption = e.target.value;
-    const correctOption = questions[currentQuestion].answer;
-    
-    console.log(`Selected option: ${selectedOption}`);
-    console.log(`Correct option: ${correctOption}`);
-    
     setSelectedOptions({
       ...selectedOptions,
       [currentQuestion]: selectedOption,
@@ -88,13 +120,27 @@ const QuizPage = () => {
   // Handle submit quiz
   const handleSubmitQuiz = () => {
     let calculatedMarks = 0;
+
     questions.forEach((question, index) => {
-      if (selectedOptions[index] === question.answer) {
-        calculatedMarks += 5; // Each correct answer is worth 5 marks
+      const selectedOption = selectedOptions[index]?.toLowerCase();
+      console.log(`Question: ${question.question}`);
+      console.log(`Selected Option: ${selectedOption}`);
+      console.log(`Correct Answer: ${question.answer}`);
+      const questionMarks = typeof question.marks === 'string' ? parseFloat(question.marks) : question.marks;
+      if (selectedOption === question.answer.toLowerCase()) {
+        console.log(`Correct answer for question ${index + 1}`);
+        calculatedMarks += questionMarks;
       }
     });
+
+    console.log(`Total Marks: ${calculatedMarks}`);
     setTotalMarks(calculatedMarks);
     setIsSubmitted(true);
+  };
+
+  // Handle subject change
+  const handleSubjectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    setSelectedSubjectId(e.target.value || null);
   };
 
   return (
@@ -117,35 +163,21 @@ const QuizPage = () => {
           </div>
         </div>
 
-        <div className="mt-4 shadow-md">
-          <div className="flex justify-center m-2">
-            <h1 className="font-bold text-lg text-red-500">Quiz</h1>
-          </div>
-        </div>
-
-        <div className="mt-5 shadow-md">
-          <div className="flex justify-center m-2">
-            <h1 className="mb-2 font-semibold text-lg text-blue-600">
-              Select Category:
-            </h1>
-          </div>
-        </div>
-
-        <div className="mb-4 shadow-md">
-          <div className="flex justify-center gap-4">
-            {["HTML", "CSS", "React"].map((category) => (
-              <label key={category} className="flex items-center">
-                <input
-                  type="radio"
-                  value={category}
-                  checked={selectedCategory === category}
-                  onChange={handleCategoryChange}
-                  className="mr-2"
-                />
-                {category}
-              </label>
+        {/* Select Subject Section */}
+        <div className="shadow-md mb-4">
+          <h1 className="mb-2 font-semibold text-lg">Select Subject:</h1>
+          <select
+            value={selectedSubjectId || ""}
+            onChange={handleSubjectChange}
+            className="block w-1/2 p-2 border rounded"
+          >
+            <option value="">Select a subject</option>
+            {subjects.map((sub) => (
+              <option key={sub.id} value={sub.id}>
+                {sub.name}
+              </option>
             ))}
-          </div>
+          </select>
         </div>
 
         {questions.length > 0 && (
@@ -160,16 +192,17 @@ const QuizPage = () => {
             <div className="mb-4 shadow-md">
               <div className="m-2">
                 {Object.entries(questions[currentQuestion].options).map(
-                  ([key, option]) => (
+                  ([key, option], index) => (
                     <label key={key} className="block mb-2">
                       <input
                         type="radio"
-                        value={option}
-                        checked={selectedOptions[currentQuestion] === option}
+                        name={`question_${currentQuestion}`}
+                        value={key}
+                        checked={selectedOptions[currentQuestion] === key}
                         onChange={handleOptionChange}
                         className="mr-2"
                       />
-                      {option}
+                      {optionLabels[index]}. {option}
                     </label>
                   )
                 )}
@@ -201,10 +234,12 @@ const QuizPage = () => {
               <div className="mb-4">
                 <h3
                   className={`text-xl ${
-                    totalMarks >= passingMarks ? "text-green-600" : "text-red-600"
+                    totalMarks >= passingMarks
+                      ? "text-green-600"
+                      : "text-red-600"
                   }`}
                 >
-                  Marks: {totalMarks} / {questions.length * 5}
+                  Total Marks: {totalMarks} / {questions.length * 5}
                 </h3>
               </div>
             )}
