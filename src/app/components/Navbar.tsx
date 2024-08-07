@@ -14,10 +14,10 @@ const Navbar = () => {
             <Link href="/" className="text-gray-900 dark:text-white hover:underline">Home</Link>
           </li>
           <li>
-            <Link href="/adminlogin" className="text-gray-900 dark:text-white hover:underline">Admin</Link>
+            <Link href="/login" className="text-gray-900 dark:text-white hover:underline">Admin</Link>
           </li>
           <li>
-            <Link href="/userlogin" className="text-gray-900 dark:text-white hover:underline">User</Link>
+            <Link href="/login" className="text-gray-900 dark:text-white hover:underline">User</Link>
           </li>
         </ul>
       </div>

@@ -4,18 +4,29 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import LoginForm from "../components/LoginForm";
 
+// Function to set cookies
+const setCookie = (name: string, value: string, days: number) => {
+  const expires = new Date();
+  expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+  const expiresStr = `expires=${expires.toUTCString()}`;
+  document.cookie = `${name}=${value}; ${expiresStr}; path=/; Secure; SameSite=Strict`;
+};
+
 const AdminLogin = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
 
+  // Example user details
   const userDetails = [
     {
       username: "admin",
       password: "Admin@123",
+      token: "your-auth-token", // Replace with your actual token or generate it dynamically
     },
   ];
 
+  // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -24,7 +35,11 @@ const AdminLogin = () => {
     );
 
     if (user) {
-      localStorage.setItem("user", JSON.stringify(user));
+      // Set user details and token in cookies
+      setCookie("authToken", user.token, 1);
+      setCookie("username", user.username, 1);
+
+      // Redirect to admin page
       router.push("/admin");
     } else {
       alert("Invalid username or password");
@@ -72,20 +87,23 @@ const AdminLogin = () => {
                 placeholder="••••••••"
               />
             </div>
-            <LoginForm/>
+            
             <button
               type="submit"
               className="w-full text-white border border-primary-600 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5"
             >
               Sign in
             </button>
-            <Link
-              href="/"
+            
+          </form>
+          <h1 className="text-white flex justify-center">-----OR-----</h1>
+          <LoginForm/>
+          <Link
+              href="/admin"
               className="w-full block text-center text-white border border-primary-600 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5"
             >
               Go To Home Page
             </Link>
-          </form>
         </div>
       </div>
     </section>

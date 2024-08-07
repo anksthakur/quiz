@@ -34,7 +34,7 @@ const Admin = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('user');
-    router.push('/adminlogin');
+    router.push('/login');
   };
 
   const handleSubjectChange = (e: ChangeEvent<HTMLSelectElement>) => {
