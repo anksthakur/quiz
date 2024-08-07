@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import LoginForm from "../components/LoginForm";
+import Link from "next/link";
 
 const Page = () => {
   return (
@@ -11,6 +12,12 @@ const Page = () => {
             Sign in to your account
           </h1>
           <LoginForm />
+          <Link
+            href="/"
+            className="w-full block text-center text-white border border-primary-600 bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5"
+          >
+            Go To Home Page
+          </Link>
         </div>
       </div>
     </section>

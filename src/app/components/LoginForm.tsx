@@ -12,7 +12,7 @@ const LoginForm = () => {
       
       <div className='flex gap-4 ml-auto'>
         <p className='text-red-600'> {session.user.name}</p>
-        <button onClick={()=> signOut()} className='text-red-600'>
+        <button onClick={()=> signOut()} className='text-red-600 hover:bg-white border border-r-2 p-2'>
           SignOut
         </button>
         </div>

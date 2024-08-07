@@ -175,7 +175,7 @@ const Admin = () => {
             />
             <label className="block mb-2 font-semibold">Options</label>
             <div className="flex flex-col gap-4">
-              {['A', 'B', 'C', 'D'].map((label, index) => (
+              {['a', 'b', 'c', 'd'].map((label, index) => (
                 <label key={label} className="flex items-center">
                   <span className="mr-2 font-semibold">{label}</span>
                   <input

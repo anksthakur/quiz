@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import React, { useState, useEffect, ChangeEvent } from "react";
 import axios from "axios";
 
-// Define types 
+// Define types
 interface Question {
   id: number;
   question: string;
@@ -84,20 +84,22 @@ const Page: React.FC = () => {
   const handleDeleteQuestion = async (subjectId: string, questionNumber: number) => {
     try {
       console.log('Deleting question with:', { subjectId, questionNumber });
-      
+  
       const response = await axios.delete('http://localhost:5000/quizes', {
         params: {
           subjectId,
-          number: questionNumber
-        }
+          number: questionNumber,
+        },
       });
-      
+  
       console.log('Delete response:', response.data);
-      setQuestions(questions.filter(question => question.number !== questionNumber));
-    } catch (error:any) {
+      setQuestions((prevQuestions) => prevQuestions.filter((question) => question.number !== questionNumber));
+    } catch (error: any) {
       console.error('Error deleting question:', error.response ? error.response.data : error.message);
     }
   };
+  
+  
 
   // Handle edit question
   const handleEditQuestion = (question: Question) => {
@@ -109,8 +111,12 @@ const Page: React.FC = () => {
   const handleSaveQuestion = async () => {
     try {
       if (currentQuestion) {
-        await axios.put(`http://localhost:5000/questions/${currentQuestion.id}`, currentQuestion);
-        setQuestions(questions.map(q => (q.id === currentQuestion.id ? currentQuestion : q)));
+        const response = await axios.put(`http://localhost:5000/quizes`, {
+          id: currentQuestion.id,
+          questionData: currentQuestion,
+          subjectId: selectedSubjectId,
+        });
+        setQuestions((prevQuestions) => prevQuestions.map((q) => (q.number === currentQuestion.number ? currentQuestion : q)));
         setEditMode(false);
         setCurrentQuestion(null);
       }
@@ -118,10 +124,12 @@ const Page: React.FC = () => {
       console.error('Error saving question:', error);
     }
   };
+  
+  
 
   return (
     <>
-      <div className="bg-orange-200">
+      <div className="bg-orange-200 min-h-screen">
         <div className="flex flex-col md:flex-row justify-between items-center p-4 bg-gray-100 dark:bg-slate-800">
           <div className="mb-4 md:mb-0">
             <h1 className="text-xl font-bold text-white">Welcome Admin</h1>
@@ -198,6 +206,38 @@ const Page: React.FC = () => {
                 type="text"
                 value={currentQuestion.question}
                 onChange={(e) => setCurrentQuestion({ ...currentQuestion, question: e.target.value })}
+                className="block w-full p-2 border rounded"
+              />
+            </label>
+            {Object.entries(currentQuestion.options).map(([key, value]) => (
+              <label key={key} className="block mb-2">
+                Option {key}:
+                <input
+                  type="text"
+                  value={value}
+                  onChange={(e) => setCurrentQuestion({ 
+                    ...currentQuestion, 
+                    options: { ...currentQuestion.options, [key]: e.target.value } 
+                  })}
+                  className="block w-full p-2 border rounded"
+                />
+              </label>
+            ))}
+            <label className="block mb-2">
+              Answer:
+              <input
+                type="text"
+                value={currentQuestion.answer}
+                onChange={(e) => setCurrentQuestion({ ...currentQuestion, answer: e.target.value })}
+                className="block w-full p-2 border rounded"
+              />
+            </label>
+            <label className="block mb-2">
+              Marks:
+              <input
+                type="number"
+                value={currentQuestion.marks}
+                onChange={(e) => setCurrentQuestion({ ...currentQuestion, marks: parseInt(e.target.value, 10) })}
                 className="block w-full p-2 border rounded"
               />
             </label>
