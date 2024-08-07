@@ -70,7 +70,7 @@ const Admin = () => {
       alert('Please fill out all fields');
       return;
     }
-
+  
     const questionData = {
       number: Date.now(),
       question,
@@ -78,19 +78,19 @@ const Admin = () => {
       answer,
       marks
     };
-
+  
     const data = {
       questionData,
       subjectId
     };
-
+  
     try {
       const response = await fetch('http://localhost:5000/quizes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
-
+  
       if (response.ok) {
         alert('Question saved successfully!');
         setQuestion('');
@@ -109,6 +109,7 @@ const Admin = () => {
       alert('An error occurred while saving the question.');
     }
   };
+  
 
   return (
     <div className="bg-sky-200 min-h-screen flex flex-col">

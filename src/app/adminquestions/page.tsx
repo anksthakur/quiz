@@ -24,7 +24,7 @@ interface Subject {
 }
 
 const Page: React.FC = () => {
-  const [selectedSubjectId, setSelectedSubjectId] = useState<string>('');
+  const [selectedSubjectId, setSelectedSubjectId] = useState<string>("");
   const [questions, setQuestions] = useState<Question[]>([]);
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [editMode, setEditMode] = useState<boolean>(false);
@@ -41,12 +41,14 @@ const Page: React.FC = () => {
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
-        const response = await axios.get<Subject[]>('http://localhost:5000/quizes');
-        console.log('Fetched subjects:', response.data);
+        const response = await axios.get<Subject[]>(
+          "http://localhost:5000/quizes"
+        );
+        console.log("Fetched subjects:", response.data);
         const filteredSubjects = response.data.filter((item) => item.name);
         setSubjects(filteredSubjects);
       } catch (error) {
-        console.error('Error fetching subjects:', error);
+        console.error("Error fetching subjects:", error);
       }
     };
 
@@ -57,15 +59,22 @@ const Page: React.FC = () => {
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
-        const response = await axios.get<Subject[]>('http://localhost:5000/quizes');
-        console.log('Fetched quizes:', response.data);
+        const response = await axios.get<Subject[]>(
+          "http://localhost:5000/quizes"
+        );
+        console.log("Fetched quizes:", response.data);
         const filteredQuestions = response.data
-          .filter((item) => item.subjectId === selectedSubjectId && item.questionData)
+          .filter(
+            (item) => item.subjectId === selectedSubjectId && item.questionData
+          )
           .map((item) => item.questionData);
-        console.log(`Filtered questions for subject: ${selectedSubjectId}`, filteredQuestions);
+        console.log(
+          `Filtered questions for subject: ${selectedSubjectId}`,
+          filteredQuestions
+        );
         setQuestions(filteredQuestions as any);
       } catch (error) {
-        console.error('Error fetching questions:', error);
+        console.error("Error fetching questions:", error);
       }
     };
 
@@ -77,29 +86,24 @@ const Page: React.FC = () => {
   // Handle subject change
   const handleSubjectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     setSelectedSubjectId(e.target.value);
-    console.log('Selected subject ID:', e.target.value);
+    console.log("Selected subject ID:", e.target.value);
   };
 
   // Handle delete question
-  const handleDeleteQuestion = async (subjectId: string, questionNumber: number) => {
+  const handleDeleteQuestion = async (questionNumber: number) => {
     try {
-      console.log('Deleting question with:', { subjectId, questionNumber });
-  
+      console.log('Deleting question with number:', questionNumber);
+      
       const response = await axios.delete('http://localhost:5000/quizes', {
-        params: {
-          subjectId,
-          number: questionNumber,
-        },
+        params: { number: questionNumber }
       });
-  
+      
       console.log('Delete response:', response.data);
-      setQuestions((prevQuestions) => prevQuestions.filter((question) => question.number !== questionNumber));
+      setQuestions(prevQuestions => prevQuestions.filter(question => question.number !== questionNumber));
     } catch (error: any) {
       console.error('Error deleting question:', error.response ? error.response.data : error.message);
     }
   };
-  
-  
 
   // Handle edit question
   const handleEditQuestion = (question: Question) => {
@@ -111,12 +115,12 @@ const Page: React.FC = () => {
   const handleSaveQuestion = async () => {
     try {
       if (currentQuestion) {
-        const response = await axios.put(`http://localhost:5000/quizes`, {
-          id: currentQuestion.id,
+        const response = await axios.put('http://localhost:5000/quizes', {
           questionData: currentQuestion,
           subjectId: selectedSubjectId,
         });
-        setQuestions((prevQuestions) => prevQuestions.map((q) => (q.number === currentQuestion.number ? currentQuestion : q)));
+        console.log('Save response:', response.data);
+        setQuestions(prevQuestions => prevQuestions.map(q => (q.number === currentQuestion.number ? currentQuestion : q)));
         setEditMode(false);
         setCurrentQuestion(null);
       }
@@ -124,8 +128,6 @@ const Page: React.FC = () => {
       console.error('Error saving question:', error);
     }
   };
-  
-  
 
   return (
     <>
@@ -149,13 +151,15 @@ const Page: React.FC = () => {
           <div className="shadow-md mb-4 p-4 bg-white rounded">
             <h1 className="mb-2 font-semibold text-lg">Select Subject:</h1>
             <select
-              value={selectedSubjectId || ''}
+              value={selectedSubjectId || ""}
               onChange={handleSubjectChange}
               className="block w-full md:w-1/2 p-2 border rounded"
             >
               <option value="">Select a subject</option>
               {subjects.map((sub) => (
-                <option key={sub.id} value={sub.id}>{sub.name}</option>
+                <option key={sub.id} value={sub.id}>
+                  {sub.name}
+                </option>
               ))}
             </select>
           </div>
@@ -163,7 +167,10 @@ const Page: React.FC = () => {
             <h1 className="text-lg font-semibold">Questions</h1>
             <div className="space-y-4">
               {questions.map((item) => (
-                <div key={item.number} className="p-4 bg-slate-200 shadow-md rounded-md">
+                <div
+                  key={item.number}
+                  className="p-4 bg-slate-200 shadow-md rounded-md"
+                >
                   <h2 className="font-semibold">{item.question}</h2>
                   <ul className="list-disc pl-5">
                     {Object.entries(item.options).map(([key, value]) => (
@@ -172,11 +179,15 @@ const Page: React.FC = () => {
                       </li>
                     ))}
                   </ul>
-                  <p><strong>Answer:</strong> {item.answer}</p>
-                  <p><strong>Marks:</strong> {item.marks}</p>
+                  <p>
+                    <strong>Answer:</strong> {item.answer}
+                  </p>
+                  <p>
+                    <strong>Marks:</strong> {item.marks}
+                  </p>
                   <div className="flex gap-2 mt-2">
                     <button
-                      onClick={() => handleDeleteQuestion(selectedSubjectId, item.number)}
+                      onClick={() => handleDeleteQuestion(item.number)}
                       className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
                     >
                       Delete
@@ -205,7 +216,12 @@ const Page: React.FC = () => {
               <input
                 type="text"
                 value={currentQuestion.question}
-                onChange={(e) => setCurrentQuestion({ ...currentQuestion, question: e.target.value })}
+                onChange={(e) =>
+                  setCurrentQuestion({
+                    ...currentQuestion,
+                    question: e.target.value,
+                  })
+                }
                 className="block w-full p-2 border rounded"
               />
             </label>
@@ -215,10 +231,15 @@ const Page: React.FC = () => {
                 <input
                   type="text"
                   value={value}
-                  onChange={(e) => setCurrentQuestion({ 
-                    ...currentQuestion, 
-                    options: { ...currentQuestion.options, [key]: e.target.value } 
-                  })}
+                  onChange={(e) =>
+                    setCurrentQuestion({
+                      ...currentQuestion,
+                      options: {
+                        ...currentQuestion.options,
+                        [key]: e.target.value,
+                      },
+                    })
+                  }
                   className="block w-full p-2 border rounded"
                 />
               </label>
@@ -228,7 +249,12 @@ const Page: React.FC = () => {
               <input
                 type="text"
                 value={currentQuestion.answer}
-                onChange={(e) => setCurrentQuestion({ ...currentQuestion, answer: e.target.value })}
+                onChange={(e) =>
+                  setCurrentQuestion({
+                    ...currentQuestion,
+                    answer: e.target.value,
+                  })
+                }
                 className="block w-full p-2 border rounded"
               />
             </label>
@@ -237,7 +263,12 @@ const Page: React.FC = () => {
               <input
                 type="number"
                 value={currentQuestion.marks}
-                onChange={(e) => setCurrentQuestion({ ...currentQuestion, marks: parseInt(e.target.value, 10) })}
+                onChange={(e) =>
+                  setCurrentQuestion({
+                    ...currentQuestion,
+                    marks: parseInt(e.target.value, 10),
+                  })
+                }
                 className="block w-full p-2 border rounded"
               />
             </label>
