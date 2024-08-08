@@ -2,6 +2,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import UserLogout from "../components/UserLogout";
 
 const Admin = () => {
   const [question, setQuestion] = useState('');
@@ -32,11 +33,7 @@ const Admin = () => {
     fetchSubjects();
   }, []);
 
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    router.push('/login');
-  };
-
+ 
   const handleSubjectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const selectedSubjectId = e.target.value;
     setSubjectId(selectedSubjectId);
@@ -117,12 +114,7 @@ const Admin = () => {
         <h1 className="text-xl font-bold text-white mb-4 md:mb-0">Welcome Admin</h1>
         <nav className="flex items-center space-x-4">
           <Link className="text-white hover:text-blue-500" href="/adminquestions">Go To Questions</Link>
-          <button
-            onClick={handleLogout}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Logout
-          </button>
+         <UserLogout/>
         </nav>
       </header>
 

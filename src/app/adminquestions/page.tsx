@@ -3,17 +3,18 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState, useEffect, ChangeEvent } from "react";
 import axios from "axios";
+import UserLogout from "../components/UserLogout";
 
 // Define types
 interface Question {
   id: number;
-  question: string;
-  options: {
-    [key: string]: string;
+  questionData: {
+    question: string;
+    options: { [key: string]: string };
+    answer: string;
+    marks: any;
+    number: any;
   };
-  answer: string;
-  marks: number;
-  number: any;
 }
 
 interface Subject {
@@ -30,12 +31,6 @@ const Page: React.FC = () => {
   const [editMode, setEditMode] = useState<boolean>(false);
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null);
   const router = useRouter();
-
-  // Logout function
-  const handleLogout = () => {
-    localStorage.removeItem("user");
-    router.push("/adminlogin");
-  };
 
   // API call to fetch subjects
   useEffect(() => {
@@ -67,7 +62,7 @@ const Page: React.FC = () => {
           .filter(
             (item) => item.subjectId === selectedSubjectId && item.questionData
           )
-          .map((item) => item.questionData);
+          .map((item) => item);
         console.log(
           `Filtered questions for subject: ${selectedSubjectId}`,
           filteredQuestions
@@ -90,16 +85,16 @@ const Page: React.FC = () => {
   };
 
   // Handle delete question
-  const handleDeleteQuestion = async (questionNumber: number) => {
+  const handleDeleteQuestion = async (id: any) => {
     try {
-      console.log('Deleting question with number:', questionNumber);
-      
-      const response = await axios.delete('http://localhost:5000/quizes', {
-        params: { number: questionNumber }
-      });
-      
+      console.log('Deleting question with ID:', id);
+      const url = `http://localhost:5000/quizes/${id}`;
+      console.log('Delete URL:', url);
+      const response = await axios.delete(url); 
       console.log('Delete response:', response.data);
-      setQuestions(prevQuestions => prevQuestions.filter(question => question.number !== questionNumber));
+      setQuestions(prevQuestions => 
+        prevQuestions.filter(question => question.id.toString() !== id)
+      );
     } catch (error: any) {
       console.error('Error deleting question:', error.response ? error.response.data : error.message);
     }
@@ -115,12 +110,21 @@ const Page: React.FC = () => {
   const handleSaveQuestion = async () => {
     try {
       if (currentQuestion) {
-        const response = await axios.put('http://localhost:5000/quizes', {
-          questionData: currentQuestion,
-          subjectId: selectedSubjectId,
-        });
+        const response = await axios.put(
+          `http://localhost:5000/quizes/${currentQuestion.id}`, // Assuming each question has a unique ID
+          {
+            questionData: currentQuestion.questionData,
+            subjectId: selectedSubjectId,
+          }
+        );
         console.log('Save response:', response.data);
-        setQuestions(prevQuestions => prevQuestions.map(q => (q.number === currentQuestion.number ? currentQuestion : q)));
+
+        setQuestions((prevQuestions) =>
+          prevQuestions.map((q) =>
+            q.id === currentQuestion.id ? { ...q, questionData: currentQuestion.questionData } : q
+          )
+        );
+        
         setEditMode(false);
         setCurrentQuestion(null);
       }
@@ -139,12 +143,7 @@ const Page: React.FC = () => {
           <Link className="text-white hover:text-blue-500" href="/admin">
             Go To Admin Page
           </Link>
-          <button
-            onClick={handleLogout}
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-4 md:mt-0"
-          >
-            Logout
-          </button>
+          <UserLogout/>
         </div>
         <div className="mb-4 p-4">
           {/* Select Subject Section */}
@@ -168,33 +167,35 @@ const Page: React.FC = () => {
             <div className="space-y-4">
               {questions.map((item) => (
                 <div
-                  key={item.number}
+                  key={item.id}
                   className="p-4 bg-slate-200 shadow-md rounded-md"
                 >
-                  <h2 className="font-semibold">{item.question}</h2>
+                  <h2 className="font-semibold">{item.questionData.question}</h2>
                   <ul className="list-disc pl-5">
-                    {Object.entries(item.options).map(([key, value]) => (
+                    {Object.entries(item.questionData.options).map(([key, value]) => (
                       <li key={key}>
                         <span className="font-bold">{key}:</span> {value}
                       </li>
                     ))}
                   </ul>
                   <p>
-                    <strong>Answer:</strong> {item.answer}
+                    <strong>Answer:</strong> {item.questionData.answer}
                   </p>
                   <p>
-                    <strong>Marks:</strong> {item.marks}
+                    <strong>Marks:</strong> {item.questionData.marks}
                   </p>
                   <div className="flex gap-2 mt-2">
+                    
                     <button
-                      onClick={() => handleDeleteQuestion(item.number)}
+                      onClick={() => handleDeleteQuestion(item.id)}
                       className="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600"
                     >
                       Delete
                     </button>
+                  
                     <button
                       onClick={() => handleEditQuestion(item)}
-                      className="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600"
+                      className="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600"
                     >
                       Edit
                     </button>
@@ -203,84 +204,37 @@ const Page: React.FC = () => {
               ))}
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* Edit Question Modal */}
-      {editMode && currentQuestion && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg max-w-sm w-full">
-            <h2 className="text-xl font-bold mb-4">Edit Question</h2>
-            <label className="block mb-2">
-              Question:
-              <input
-                type="text"
-                value={currentQuestion.question}
-                onChange={(e) =>
-                  setCurrentQuestion({
-                    ...currentQuestion,
-                    question: e.target.value,
-                  })
-                }
-                className="block w-full p-2 border rounded"
-              />
-            </label>
-            {Object.entries(currentQuestion.options).map(([key, value]) => (
-              <label key={key} className="block mb-2">
-                Option {key}:
+          {editMode && currentQuestion && (
+            <div className="mt-5 p-4 bg-white shadow-md rounded-md">
+              <h2 className="text-lg font-semibold">Edit Question</h2>
+              <div className="mt-2">
+                <label className="block text-sm font-medium text-gray-700">Question:</label>
                 <input
                   type="text"
-                  value={value}
+                  value={currentQuestion.questionData.question}
                   onChange={(e) =>
                     setCurrentQuestion({
                       ...currentQuestion,
-                      options: {
-                        ...currentQuestion.options,
-                        [key]: e.target.value,
+                      questionData: {
+                        ...currentQuestion.questionData,
+                        question: e.target.value,
                       },
                     })
                   }
-                  className="block w-full p-2 border rounded"
+                  className="mt-1 p-2 border rounded w-full"
                 />
-              </label>
-            ))}
-            <label className="block mb-2">
-              Answer:
-              <input
-                type="text"
-                value={currentQuestion.answer}
-                onChange={(e) =>
-                  setCurrentQuestion({
-                    ...currentQuestion,
-                    answer: e.target.value,
-                  })
-                }
-                className="block w-full p-2 border rounded"
-              />
-            </label>
-            <label className="block mb-2">
-              Marks:
-              <input
-                type="number"
-                value={currentQuestion.marks}
-                onChange={(e) =>
-                  setCurrentQuestion({
-                    ...currentQuestion,
-                    marks: parseInt(e.target.value, 10),
-                  })
-                }
-                className="block w-full p-2 border rounded"
-              />
-            </label>
-            <button
-              onClick={handleSaveQuestion}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 mt-4"
-            >
-              Save
-            </button>
-          </div>
+              </div>
+              {/* Add more input fields for options, answer, and marks */}
+              <button
+                onClick={handleSaveQuestion}
+                className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+              >
+                Save
+              </button>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </>
   );
 };

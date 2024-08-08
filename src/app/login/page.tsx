@@ -22,7 +22,7 @@ const AdminLogin = () => {
     {
       username: "admin",
       password: "Admin@123",
-      token: "your-auth-token", // Replace with your actual token or generate it dynamically
+      token: "your-auth-token",
     },
   ];
 

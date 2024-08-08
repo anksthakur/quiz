@@ -6,13 +6,18 @@ import { doSocialLogin } from '../action';
 
 const LoginForm = () => {
 
+const SignOut = () => {
+    void signOut();
+};
+
   const {data:session} = useSession();
   if(session && session.user){
+ 
     return (
       
       <div className='flex gap-4 ml-auto'>
         <p className='text-red-600'> {session.user.name}</p>
-        <button onClick={()=> signOut()} className='text-red-600 hover:bg-white border border-r-2 p-2'>
+        <button onClick={()=> SignOut()} className='text-red-600 hover:bg-white border border-r-2 p-2'>
           SignOut
         </button>
         </div>

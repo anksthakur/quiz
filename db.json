@@ -9,38 +9,6 @@
       "name": "css"
     },
     {
-      "id": "687d",
-      "questionData": {
-        "number": 1723003477190,
-        "question": " In how many ways can CSS be written in?",
-        "options": {
-          "a": "1",
-          "b": "2",
-          "c": "3",
-          "d": "4"
-        },
-        "answer": "c",
-        "marks": "5"
-      },
-      "subjectId": "11bc"
-    },
-    {
-      "id": "13bd",
-      "questionData": {
-        "number": 1723003709042,
-        "question": "CSS stands for -",
-        "options": {
-          "a": "Cascade style sheets",
-          "b": "Color and style sheets",
-          "c": "Cascading style sheets",
-          "d": "None of the above"
-        },
-        "answer": "c",
-        "marks": "5"
-      },
-      "subjectId": "11bc"
-    },
-    {
       "id": "fc5e",
       "questionData": {
         "number": 1723003763403,
@@ -89,7 +57,6 @@
       "subjectId": "d295"
     },
     {
-      "id": "54fa",
       "questionData": {
         "number": 1723003956093,
         "question": "Which of the following element is responsible for making the text bold in HTML?",
@@ -102,7 +69,8 @@
         "answer": "c",
         "marks": "5"
       },
-      "subjectId": "d295"
+      "subjectId": "d295",
+      "id": "54fa"
     },
     {
       "id": "d698",
@@ -121,26 +89,9 @@
       "subjectId": "d295"
     },
     {
-      "id": "0994",
-      "questionData": {
-        "number": 1723004064671,
-        "question": " How to create an unordered list (a list with the list items in bullets) in HTML?",
-        "options": {
-          "a": "<ul>",
-          "b": "<ol>",
-          "c": "<li>",
-          "d": "<i>"
-        },
-        "answer": "a",
-        "marks": "5"
-      },
-      "subjectId": "d295"
-    },
-    {
-      "id": "7604",
       "questionData": {
         "number": 1723005577954,
-        "question": "How to insert an image in HTML?",
+        "question": "How to insert an image in HTM?",
         "options": {
           "a": "<img href = \"jtp.png\" />",
           "b": "<img url = \"jtp.png\" />",
@@ -150,27 +101,12 @@
         "answer": "d",
         "marks": "5"
       },
-      "subjectId": "d295"
+      "subjectId": "d295",
+      "id": "7604"
     },
     {
       "id": "0199",
       "name": "react"
-    },
-    {
-      "id": "8790",
-      "questionData": {
-        "number": 1723006878712,
-        "question": "Which of the following is the correct name of React.js?",
-        "options": {
-          "a": "React",
-          "b": "React.js",
-          "c": "ReactJS",
-          "d": "All of the above"
-        },
-        "answer": "d",
-        "marks": "5"
-      },
-      "subjectId": "0199"
     },
     {
       "id": "032a",
@@ -216,22 +152,6 @@
           "d": "DataObject"
         },
         "answer": "b",
-        "marks": "5"
-      },
-      "subjectId": "0199"
-    },
-    {
-      "id": "1cec",
-      "questionData": {
-        "number": 1723007285661,
-        "question": "Which of the following keyword is used to create a class inheritance?",
-        "options": {
-          "a": "Create",
-          "b": "Inherits",
-          "c": "Extends",
-          "d": "This"
-        },
-        "answer": "c",
         "marks": "5"
       },
       "subjectId": "0199"
