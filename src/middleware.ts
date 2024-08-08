@@ -4,7 +4,6 @@ export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const cookies = req.cookies;
 
-  // Extract the authToken from cookies
   const authToken = cookies.get("authToken")?.value;
   const UserToken = cookies.get("next-auth.session-token");
 
@@ -13,7 +12,7 @@ export function middleware(req: NextRequest) {
   console.log("Session Token:", UserToken);
   console.log();
   
-  // Allow access to static files
+  // Allow access to static files and public routes
   if (
     pathname.startsWith('/_next/') ||
     pathname.startsWith('/static/') ||
@@ -27,23 +26,23 @@ export function middleware(req: NextRequest) {
 
   // admin is authenticated
   if (authToken) {
-    if (
-      pathname === '/admin' ||
-      pathname === '/adminquestions' ||
-      pathname === '/' 
-    ) {
+    // Restrict admin from accessing user routes
+    if (pathname === '/user') {
+      return NextResponse.redirect(new URL("/admin", req.url));
+    }
+    if (pathname === '/admin' || pathname === '/adminquestions' || pathname === '/') {
       return NextResponse.next();
     }
     return NextResponse.redirect(new URL("/login", req.url));
   }
-  //user
+
+  // user is authenticated
   if (UserToken) {
-    console.log(pathname);
-    
-    if (
-      pathname === '/' ||
-      pathname === '/user'
-    ) {
+    // Restrict user from accessing admin routes
+    if (pathname === '/admin' || pathname === '/adminquestions') {
+      return NextResponse.redirect(new URL("/user", req.url)); 
+    }
+    if (pathname === '/' || pathname === '/user') {
       return NextResponse.next();
     }
     return NextResponse.redirect(new URL("/login", req.url));
