@@ -41,22 +41,6 @@
       "subjectId": "11bc"
     },
     {
-      "questionData": {
-        "number": 1723003956093,
-        "question": "Which of the following element is responsible for making the text bold in HTML?",
-        "options": {
-          "a": "<pre>",
-          "b": "<a>",
-          "c": "<b>",
-          "d": "<br>"
-        },
-        "answer": "c",
-        "marks": "5"
-      },
-      "subjectId": "d295",
-      "id": "54fa"
-    },
-    {
       "id": "d698",
       "questionData": {
         "number": 1723004010706,
