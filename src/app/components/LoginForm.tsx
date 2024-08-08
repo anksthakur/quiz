@@ -12,9 +12,7 @@ const SignOut = () => {
 
   const {data:session} = useSession();
   if(session && session.user){
- 
     return (
-      
       <div className='flex gap-4 ml-auto'>
         <p className='text-red-600'> {session.user.name}</p>
         <button onClick={()=> SignOut()} className='text-red-600 hover:bg-white border border-r-2 p-2'>

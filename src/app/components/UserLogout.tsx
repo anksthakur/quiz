@@ -2,16 +2,13 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 
-
 const UserLogout = () => {
   const router = useRouter();
-
   const handleLogout = () => {
     localStorage.removeItem('user');
     Cookies.remove('username'); 
     router.push('/login');
   };
-
   return (
     <div>
       <button

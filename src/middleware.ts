@@ -7,7 +7,7 @@ export function middleware(req: NextRequest) {
   // Extract the authToken from cookies
   const authToken = cookies.get("authToken")?.value;
   const UserToken = cookies.get("next-auth.session-token");
-  // Log the details for debugging
+
   console.log("Requested Pathname:", pathname);
   console.log("Auth Token:", authToken);
   console.log("Session Token:", UserToken);
@@ -25,16 +25,16 @@ export function middleware(req: NextRequest) {
     return NextResponse.next();
   }
 
-  // Check if the admin is authenticated
+  // admin is authenticated
   if (authToken) {
     if (
       pathname === '/admin' ||
       pathname === '/adminquestions' ||
-      pathname === '/user'
+      pathname === '/' 
     ) {
       return NextResponse.next();
     }
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL("/login", req.url));
   }
   //user
   if (UserToken) {
@@ -46,14 +46,12 @@ export function middleware(req: NextRequest) {
     ) {
       return NextResponse.next();
     }
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // Redirect to login page if no valid token is found 
   if (!authToken && pathname !== '/login') {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // Allow the request if none of the conditions are met
   return NextResponse.next();
 }

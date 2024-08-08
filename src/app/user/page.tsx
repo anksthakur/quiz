@@ -55,7 +55,7 @@ const QuizPage = () => {
     fetchSubjects();
   }, []);
 
-  // Fetch questions based on selected subject
+  // Fetch questions
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -64,7 +64,7 @@ const QuizPage = () => {
         );
         console.log("Fetched quizzes:", response.data);
 
-        // Filter and extract questions on the selected subject
+        // Filter and extract questions
         const filteredQuestions = response.data
           .filter(
             (item) => item.subjectId === selectedSubjectId && item.questionData

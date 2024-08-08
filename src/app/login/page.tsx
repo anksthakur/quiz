@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import LoginForm from "../components/LoginForm";
 
-// Function to set cookies
+// set cookies
 const setCookie = (name: string, value: string, days: number) => {
   const expires = new Date();
   expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
@@ -17,7 +17,7 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  // Example user details
+  // user details
   const userDetails = [
     {
       username: "admin",
@@ -29,17 +29,13 @@ const AdminLogin = () => {
   // Handle form submission
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const user = userDetails.find(
       (user) => user.username === username && user.password === password
     );
-
+  // Set user details and token in cookies
     if (user) {
-      // Set user details and token in cookies
       setCookie("authToken", user.token, 1);
       setCookie("username", user.username, 1);
-
-      // Redirect to admin page
       router.push("/admin");
     } else {
       alert("Invalid username or password");

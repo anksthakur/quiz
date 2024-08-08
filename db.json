@@ -9,7 +9,6 @@
       "name": "css"
     },
     {
-      "id": "fc5e",
       "questionData": {
         "number": 1723003763403,
         "question": "The property in CSS used to change the background color of an element is -",
@@ -22,7 +21,8 @@
         "answer": "c",
         "marks": "5"
       },
-      "subjectId": "11bc"
+      "subjectId": "11bc",
+      "id": "fc5e"
     },
     {
       "id": "33c5",
@@ -39,22 +39,6 @@
         "marks": "5"
       },
       "subjectId": "11bc"
-    },
-    {
-      "id": "3437",
-      "questionData": {
-        "number": 1723003905189,
-        "question": "HTML stands for -",
-        "options": {
-          "a": "HighText Machine Language",
-          "b": "HyperText and links Markup Language",
-          "c": "HyperText Markup Language",
-          "d": "None of these"
-        },
-        "answer": "c",
-        "marks": "5"
-      },
-      "subjectId": "d295"
     },
     {
       "questionData": {

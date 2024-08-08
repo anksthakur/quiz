@@ -50,7 +50,7 @@ const Page: React.FC = () => {
     fetchSubjects();
   }, []);
 
-  // API call to fetch questions based on the selected subject
+  // fetch questions
   useEffect(() => {
     const fetchQuestions = async () => {
       try {
@@ -111,7 +111,7 @@ const Page: React.FC = () => {
     try {
       if (currentQuestion) {
         const response = await axios.put(
-          `http://localhost:5000/quizes/${currentQuestion.id}`, // Assuming each question has a unique ID
+          `http://localhost:5000/quizes/${currentQuestion.id}`,
           {
             questionData: currentQuestion.questionData,
             subjectId: selectedSubjectId,
@@ -130,6 +130,25 @@ const Page: React.FC = () => {
       }
     } catch (error) {
       console.error('Error saving question:', error);
+    }
+  };
+
+  // Handle change for options
+  const handleOptionChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    optionKey: string
+  ) => {
+    if (currentQuestion) {
+      setCurrentQuestion({
+        ...currentQuestion,
+        questionData: {
+          ...currentQuestion.questionData,
+          options: {
+            ...currentQuestion.questionData.options,
+            [optionKey]: e.target.value,
+          },
+        },
+      });
     }
   };
 
@@ -224,13 +243,61 @@ const Page: React.FC = () => {
                   className="mt-1 p-2 border rounded w-full"
                 />
               </div>
-              {/* Add more input fields for options, answer, and marks */}
-              <button
-                onClick={handleSaveQuestion}
-                className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-              >
-                Save
-              </button>
+              <div className="mt-2">
+                <label className="block text-sm font-medium text-gray-700">Marks:</label>
+                <input
+                  type="text"
+                  value={currentQuestion.questionData.marks}
+                  onChange={(e) =>
+                    setCurrentQuestion({
+                      ...currentQuestion,
+                      questionData: {
+                        ...currentQuestion.questionData,
+                        marks: e.target.value,
+                      },
+                    })
+                  }
+                  className="mt-1 p-2 border rounded w-full"
+                />
+              </div>
+              <div className="mt-2">
+                <label className="block text-sm font-medium text-gray-700">Answer:</label>
+                <input
+                  type="text"
+                  value={currentQuestion.questionData.answer}
+                  onChange={(e) =>
+                    setCurrentQuestion({
+                      ...currentQuestion,
+                      questionData: {
+                        ...currentQuestion.questionData,
+                        answer: e.target.value,
+                      },
+                    })
+                  }
+                  className="mt-1 p-2 border rounded w-full"
+                />
+              </div>
+              {Object.entries(currentQuestion.questionData.options).map(([key, value]) => (
+                <div key={key} className="mt-2">
+                  <label className="block text-sm font-medium text-gray-700">
+                    Option {key}:
+                  </label>
+                  <input
+                    type="text"
+                    value={value}
+                    onChange={(e) => handleOptionChange(e, key)}
+                    className="mt-1 p-2 border rounded w-full"
+                  />
+                </div>
+              ))}
+              <div className="mt-4">
+                <button
+                  onClick={handleSaveQuestion}
+                  className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                >
+                  Save
+                </button>
+              </div>
             </div>
           )}
         </div>

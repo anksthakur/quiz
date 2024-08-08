@@ -18,6 +18,7 @@ const Admin = () => {
 
   const router = useRouter();
 
+  // fetch subject
   useEffect(() => {
     const fetchSubjects = async () => {
       try {
@@ -39,6 +40,7 @@ const Admin = () => {
     setSubjectId(selectedSubjectId);
   };
 
+  // add subject
   const handleAddSubject = async () => {
     const newSubject = { name: subject };
 
@@ -62,6 +64,7 @@ const Admin = () => {
     }
   };
 
+  // submit button
   const handleSubmit = async () => {
     if (!question || !optionA || !optionB || !optionC || !optionD || !answer || !marks || !subjectId) {
       alert('Please fill out all fields');
@@ -106,7 +109,6 @@ const Admin = () => {
       alert('An error occurred while saving the question.');
     }
   };
-  
 
   return (
     <div className="bg-sky-200 min-h-screen flex flex-col">
