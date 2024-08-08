@@ -5,7 +5,7 @@ export function middleware(req: NextRequest) {
   const cookies = req.cookies;
 
   const authToken = cookies.get("authToken")?.value;
-  const UserToken = cookies.get("next-auth.session-token");
+  const UserToken = cookies.get("__Secure-next-auth.session-token");
 
   console.log("Requested Pathname:", pathname);
   console.log("Auth Token:", authToken);
@@ -26,7 +26,7 @@ export function middleware(req: NextRequest) {
   // admin is authenticated
   if (authToken) {
     // Restrict admin from accessing user routes
-    if (pathname === '/user') {
+    if (pathname === 'https://quiz-pearl-six.vercel.app/user') {
       return NextResponse.redirect(new URL("/admin", req.url));
     }
     if (pathname === '/admin' || pathname === '/adminquestions' || pathname === '/') {
@@ -39,9 +39,9 @@ export function middleware(req: NextRequest) {
   if (UserToken) {
     // Restrict user from accessing admin routes
     if (pathname === '/admin' || pathname === '/adminquestions') {
-      return NextResponse.redirect(new URL("/user", req.url)); 
+      return NextResponse.redirect(new URL("https://quiz-pearl-six.vercel.app/user", req.url)); 
     }
-    if (pathname === '/' || pathname === '/user') {
+    if (pathname === '/' || pathname === 'https://quiz-pearl-six.vercel.app/user') {
       return NextResponse.next();
     }
     return NextResponse.redirect(new URL("/login", req.url));
