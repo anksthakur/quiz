@@ -139,6 +139,134 @@
         "marks": "5"
       },
       "subjectId": "0199"
+    },
+    {
+      "id": "e20c",
+      "questionData": {
+        "number": 1723114792691,
+        "question": "Which of these tags helps in the creation of a drop-down box or a combo box?",
+        "options": {
+          "a": "<input type = “dropdown”>",
+          "b": "<list>",
+          "c": "<ul>",
+          "d": "<select>"
+        },
+        "answer": "d",
+        "marks": "5"
+      },
+      "subjectId": "d295"
+    },
+    {
+      "id": "d845",
+      "questionData": {
+        "number": 1723114856193,
+        "question": "Which tag is used in HTML5 for the initialization of the document type?",
+        "options": {
+          "a": "<Doctype HTML>",
+          "b": "<!DOCTYPE html>",
+          "c": "<Doctype>",
+          "d": "<\\Doctype html>"
+        },
+        "answer": "b",
+        "marks": "5"
+      },
+      "subjectId": "d295"
+    },
+    {
+      "id": "7db9",
+      "questionData": {
+        "number": 1723114914631,
+        "question": " Which one is the HTML document’s root tag?",
+        "options": {
+          "a": "<head>",
+          "b": "<body>",
+          "c": "<title>",
+          "d": "<html>"
+        },
+        "answer": "d",
+        "marks": "5"
+      },
+      "subjectId": "d295"
+    },
+    {
+      "id": "7d3d",
+      "questionData": {
+        "number": 1723115036926,
+        "question": "Are the negative values allowed in padding property?",
+        "options": {
+          "a": "Yes",
+          "b": "No",
+          "c": "Can't say",
+          "d": "May be"
+        },
+        "answer": "b",
+        "marks": "5"
+      },
+      "subjectId": "11bc"
+    },
+    {
+      "id": "6041",
+      "questionData": {
+        "number": 1723115086602,
+        "question": "Which of the following property is used as the shorthand property of margin properties?",
+        "options": {
+          "a": "margin-left",
+          "b": "margin-right",
+          "c": "margin",
+          "d": "None of the above"
+        },
+        "answer": "c",
+        "marks": "5"
+      },
+      "subjectId": "11bc"
+    },
+    {
+      "id": "f698",
+      "questionData": {
+        "number": 1723115150454,
+        "question": "The CSS property used to specify the transparency of an element is -",
+        "options": {
+          "a": "opacity",
+          "b": "filter",
+          "c": "visibility",
+          "d": "overlay"
+        },
+        "answer": "a",
+        "marks": "5"
+      },
+      "subjectId": "11bc"
+    },
+    {
+      "id": "7d89",
+      "questionData": {
+        "number": 1723115227623,
+        "question": " What is the default port where webpack-server runs?",
+        "options": {
+          "a": "3000",
+          "b": "8080",
+          "c": "3030",
+          "d": "6060"
+        },
+        "answer": "b",
+        "marks": "5"
+      },
+      "subjectId": "0199"
+    },
+    {
+      "id": "77f8",
+      "questionData": {
+        "number": 1723115294637,
+        "question": " How many numbers of elements a valid react component can return?",
+        "options": {
+          "a": "1",
+          "b": "2",
+          "c": "4",
+          "d": "5"
+        },
+        "answer": "a",
+        "marks": "5"
+      },
+      "subjectId": "0199"
     }
   ]
 }
