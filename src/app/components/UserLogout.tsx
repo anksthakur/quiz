@@ -7,6 +7,7 @@ const UserLogout = () => {
   const handleLogout = () => {
     localStorage.removeItem('user');
     Cookies.remove('username'); 
+    Cookies.remove('authToken'); 
     router.push('/login');
   };
   return (

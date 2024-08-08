@@ -2,6 +2,8 @@
 import axios from "axios";
 import Link from "next/link";
 import React, { ChangeEvent, useEffect, useState } from "react";
+import { signOut} from 'next-auth/react';
+import { useRouter } from "next/navigation";
 
 interface Question {
   id: string;
@@ -22,6 +24,7 @@ interface Subject {
 }
 
 const QuizPage = () => {
+  const router = useRouter();
   const [subjects, setSubjects] = useState<Subject[]>([]);
   const [selectedSubjectId, setSelectedSubjectId] = useState<string | null>(
     null
@@ -143,6 +146,12 @@ const QuizPage = () => {
     setSelectedSubjectId(e.target.value || null);
   };
 
+  const SignOut = () => {
+    void signOut();
+      router.push('/');
+
+};
+
   return (
     <div className="bg-green-100 min-h-screen flex flex-col">
       <header className="flex flex-col md:flex-row justify-between p-4 bg-gray-100 dark:bg-gray-800">
@@ -151,12 +160,12 @@ const QuizPage = () => {
           <Link className="text-white hover:text-blue-500" href="/">
             Go To Home Page
           </Link>
-          <Link
-            href="/login"
+          <button
+            onClick={SignOut}
             className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
           >
             Logout
-          </Link>
+          </button>
         </nav>
       </header>
 

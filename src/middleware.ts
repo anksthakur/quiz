@@ -3,53 +3,31 @@ import { NextRequest, NextResponse } from "next/server";
 export function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
   const cookies = req.cookies;
+  const authToken = cookies.get('authToken');
 
-  const authToken = cookies.get("authToken")?.value;
-  const UserToken = cookies.get("__Secure-next-auth.session-token");
 
-  console.log("Requested Pathname:", pathname);
-  console.log("Auth Token:", authToken);
-  console.log("Session Token:", UserToken);
-  
-  // Allow access to static files and public routes
-  if (
-    pathname.startsWith('/_next/') ||
-    pathname.startsWith('/static/') ||
-    pathname.startsWith('/public/') ||
-    pathname.match(/\.(png|jpg|jpeg|gif|svg|ico)$/) ||
-    pathname === '/login' ||
-    pathname.startsWith('/api')
-  ) {
-    return NextResponse.next();
-  }
+  // Access a specific cookie
+  const UserToken = cookies.get('next-auth.session-token');
 
-  // admin is authenticated
   if (authToken) {
-    // Restrict admin from accessing user routes
-    if (pathname === 'https://quiz-pearl-six.vercel.app/user') {
-      return NextResponse.redirect(new URL("/admin", req.url));
-    }
-    if (pathname === '/admin' || pathname === '/adminquestions' || pathname === '/') {
-      return NextResponse.next();
-    }
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
+      if (pathname === '/user') {
+        return NextResponse.redirect(new URL("/admin", req.url));
+      } else if (pathname === '/login'){
+        return NextResponse.redirect(new URL("/admin", req.url));
+      }
 
-  // user is authenticated
-  if (UserToken) {
-    // Restrict user from accessing admin routes
-    if (pathname === '/admin' || pathname === '/adminquestions') {
-      return NextResponse.redirect(new URL("https://quiz-pearl-six.vercel.app/user", req.url)); 
+    } else if (UserToken){
+      if (pathname === '/admin') {
+        return NextResponse.redirect(new URL("/user", req.url));
+      } else if (pathname === '/adminquestions'){
+        return NextResponse.redirect(new URL("/user", req.url));
+      } else if (pathname === '/login'){
+        return NextResponse.redirect(new URL("/user", req.url));
+      }
     }
-    if (pathname === '/' || pathname === 'https://quiz-pearl-six.vercel.app/user') {
-      return NextResponse.next();
-    }
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
 
-  if (!authToken && pathname !== '/login') {
-    return NextResponse.redirect(new URL("/login", req.url));
-  }
+    
+    return NextResponse.next();
 
-  return NextResponse.next();
+
 }

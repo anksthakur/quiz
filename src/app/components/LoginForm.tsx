@@ -26,6 +26,7 @@ const SignOut = () => {
     const formData = new FormData();
     formData.append('action', provider);
     await doSocialLogin(formData);
+    console.log('1')
   };
   return (
     <div  

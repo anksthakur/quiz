@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import LoginForm from "../components/LoginForm";
@@ -41,6 +41,16 @@ const AdminLogin = () => {
       alert("Invalid username or password");
     }
   };
+
+  useEffect(()=>{
+    console.log('object')
+    const check = async () => {
+      let resp = await fetch("/api/cookie");
+      let data = await resp.json();
+      console.log(data, "DATA");
+    }
+    check();
+  }, [])
 
   return (
     <section className="bg-gray-50 dark:bg-gray-900 min-h-screen flex items-center justify-center p-4">
