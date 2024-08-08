@@ -17,7 +17,7 @@ const AdminLogin = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  // user details
+  // admin details
   const userDetails = [
     {
       username: "admin",

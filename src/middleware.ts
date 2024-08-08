@@ -10,7 +10,6 @@ export function middleware(req: NextRequest) {
   console.log("Requested Pathname:", pathname);
   console.log("Auth Token:", authToken);
   console.log("Session Token:", UserToken);
-  console.log();
   
   // Allow access to static files and public routes
   if (
