@@ -15,9 +15,9 @@ console.log('User Token:', userToken);
   }
 
   //Protect user routes
-  // if (!userToken && pathname === '/user') {
-  //   return NextResponse.redirect(new URL("/login", req.url));
-  // }
+  if (!userToken && pathname === '/user') {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
 
   // Admin is authenticated
   if (adminToken) {
@@ -27,11 +27,11 @@ console.log('User Token:', userToken);
   }
 
   // User is authenticated
-  // if (userToken) {
-  //   if (pathname === '/admin' || pathname === '/adminquestions' || pathname === '/login') {
-  //     return NextResponse.redirect(new URL("/user", req.url));
-  //   }
-  // }
+  if (userToken) {
+    if (pathname === '/admin' || pathname === '/adminquestions' || pathname === '/login') {
+      return NextResponse.redirect(new URL("/user", req.url));
+    }
+  }
 
   return NextResponse.next();
 }
