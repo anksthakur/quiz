@@ -5,11 +5,14 @@ export function middleware(req: NextRequest) {
   const cookies = req.cookies;
   const adminToken = cookies.get("authToken");
   const userToken =
-    cookies.get("next-auth.session-token")
+    cookies.get("next-auth.session-token") || cookies.get("__Secure-next-auth.session-token") 
 
   console.log("adminToken:", adminToken);
   console.log("userToken:", userToken);
 
+if(pathname.startsWith("/api/auth/")){
+return NextResponse.next();
+}
   // Protect routes
   if (!adminToken && !userToken) {
     if (
@@ -23,7 +26,7 @@ export function middleware(req: NextRequest) {
 
   // Admin is authenticated
   if (adminToken) {
-    if (pathname === "/user" || pathname === "/login") {
+    if (pathname === "/user") {
       return NextResponse.redirect(new URL("/admin", req.url));
     }
   }
@@ -32,8 +35,7 @@ export function middleware(req: NextRequest) {
   if (userToken) {
     if (
       pathname === "/admin" ||
-      pathname === "/adminquestions" ||
-      pathname === "/login"
+      pathname === "/adminquestions"
     ) {
       return NextResponse.redirect(new URL("/user", req.url));
     }
