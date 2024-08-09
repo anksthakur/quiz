@@ -7,7 +7,8 @@ import { doSocialLogin } from '../action';
 const LoginForm = () => {
 
 const SignOut = () => {
-    void signOut();
+   
+  signOut({ callbackUrl: "/login" });
 };
 
   const {data:session} = useSession();

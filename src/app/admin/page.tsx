@@ -70,7 +70,6 @@ const Admin = () => {
       alert('Please fill out all fields');
       return;
     }
-  
     const questionData = {
       number: Date.now(),
       question,
@@ -78,12 +77,10 @@ const Admin = () => {
       answer,
       marks
     };
-  
     const data = {
       questionData,
       subjectId
     };
-  
     try {
       const response = await fetch('http://localhost:5000/quizes', {
         method: 'POST',

@@ -126,9 +126,9 @@ const QuizPage = () => {
 
     questions.forEach((question, index) => {
       const selectedOption = selectedOptions[index]?.toLowerCase();
-      console.log(`Question: ${question.question}`);
-      console.log(`Selected Option: ${selectedOption}`);
-      console.log(`Correct Answer: ${question.answer}`);
+      // console.log(`Question: ${question.question}`);
+      // console.log(`Selected Option: ${selectedOption}`);
+      // console.log(`Correct Answer: ${question.answer}`);
       const questionMarks = typeof question.marks === 'string' ? parseFloat(question.marks) : question.marks;
       if (selectedOption === question.answer.toLowerCase()) {
         console.log(`Correct answer for question ${index + 1}`);
@@ -146,10 +146,9 @@ const QuizPage = () => {
     setSelectedSubjectId(e.target.value || null);
   };
 
+  // handle logout
   const SignOut = () => {
-    void signOut();
-      router.push('/');
-
+    signOut({ callbackUrl: "/login" });
 };
 
   return (

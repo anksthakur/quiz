@@ -4,8 +4,6 @@ import Link from "next/link";
 
 
 const Navbar = () => {
-
-
   return (
     <nav className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700">
       <div className="max-w-screen-xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between">
