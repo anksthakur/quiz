@@ -14,10 +14,10 @@ console.log('User Token:', userToken);
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // Protect user routes
-  // if (!userToken && pathname === '/user') {
-  //   return NextResponse.redirect(new URL("/login", req.url));
-  // }
+  //Protect user routes
+  if (!userToken && pathname === '/user') {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
 
   // Admin is authenticated
   if (adminToken) {
