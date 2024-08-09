@@ -12,9 +12,9 @@ export function middleware(req: NextRequest) {
   }
 
   // // Protect user routes
-  // if (!userToken && pathname === '/user') {
-  //   return NextResponse.redirect(new URL("/login", req.url));
-  // }
+  if (!userToken && pathname === '/user') {
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
 
   // authenticated as admin
   if (adminToken) {
