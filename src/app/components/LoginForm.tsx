@@ -8,7 +8,7 @@ const LoginForm = () => {
 
 const SignOut = () => {
    
-  signOut({ callbackUrl: "/login" });
+  signOut({ callbackUrl: "/" });
 };
 
   const {data:session} = useSession();
