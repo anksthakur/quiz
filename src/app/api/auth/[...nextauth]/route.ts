@@ -14,10 +14,6 @@ import GoogleProvider from "next-auth/providers/google";
             },
         }), 
     ],
-    callbacks: {
-        async redirect({ url, baseUrl }) {
-          return url.startsWith(baseUrl) ? url : `${baseUrl}/user`;
-        },
-      },
+    
     });
 export {handler as GET , handler as POST}
